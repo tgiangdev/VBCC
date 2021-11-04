@@ -1,0 +1,1 @@
+java -jar openapi-generator-cli-5.1.0.jar generate -i http://localhost:2221/v3/api-docs -g typescript-angular -o doc

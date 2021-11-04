@@ -1,0 +1,129 @@
+@import '~antd/es/style/themes/default.less';
+:root {
+  --g-time: 0.7s;
+  --g-space: 20px;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+.colorWeak {
+  filter: invert(80%);
+}
+
+.ant-layout {
+  min-height: 100vh;
+}
+.ant-pro-sider.ant-layout-sider.ant-pro-sider-fixed {
+  left: unset;
+}
+
+canvas {
+  display: block;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+@media (max-width: @screen-xs) {
+  .ant-table {
+    width: 100%;
+    overflow-x: auto;
+    &-thead > tr,
+    &-tbody > tr {
+      > th,
+      > td {
+        white-space: pre;
+        > span {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+// Compatible with IE11
+@media screen and(-ms-high-contrast: active), (-ms-high-contrast: none) {
+  body .ant-design-pro > .ant-layout {
+    min-height: 100vh;
+  }
+}
+
+
+/// CUSTOM
+
+.fadeInRight {
+  -webkit-animation-name: fadeInRight;
+  animation-name: fadeInRight;
+  -webkit-animation-duration: var(--g-time);
+  animation-duration: var(--g-time);
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@-webkit-keyframes fadeInRight {
+  0% {
+      opacity: 0;
+      -webkit-transform: translate3d(var(--g-space), 0, 0);
+      -ms-transform: translateX(var(--g-space), 0, 0);
+      transform: translate3d(var(--g-space), 0, 0);
+  }
+  100% {
+      opacity: 1;
+      -webkit-transform: none;
+      transform: none;
+      -ms-transform: none;
+  }
+}
+
+@keyframes fadeInRight {
+  0% {
+      opacity: 0;
+      -webkit-transform: translate3d(var(--g-space), 0, 0);
+      -ms-transform: translateX(var(--g-space), 0, 0);
+      transform: translate3d(var(--g-space), 0, 0);
+  }
+  100% {
+      opacity: 1;
+      -webkit-transform: none;
+      transform: none;
+      -ms-transform: none;
+  }
+}
+
+html {
+  overflow: auto;
+}
+
+body {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #ebebeb;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: #6d6d6d; 
+}

@@ -1,0 +1,11 @@
+export * from './auth.service';
+import { AuthService } from './auth.service';
+export * from './book.service';
+import { BookService } from './book.service';
+export * from './bookAdmin.service';
+import { BookAdminService } from './bookAdmin.service';
+export * from './bookCategory.service';
+import { BookCategoryService } from './bookCategory.service';
+export * from './bookCategoryAdmin.service';
+import { BookCategoryAdminService } from './bookCategoryAdmin.service';
+export const APIS = [AuthService, BookService, BookAdminService, BookCategoryService, BookCategoryAdminService];

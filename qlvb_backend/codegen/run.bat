@@ -1,0 +1,1 @@
+java -jar swagger-codegen-cli-3.0.30-20211008.101413-1.jar generate -i http://localhost:2221/v3/api-docs -l typescript-angular -o code2 --auth tgiangdev
