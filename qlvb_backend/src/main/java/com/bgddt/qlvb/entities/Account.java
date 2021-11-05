@@ -30,9 +30,6 @@ public class Account extends AbstractAuditingEntity {
     @Column(name = "last_name", nullable = false, length = 20)
     private String lastName;
 
-    @Column(name = "is_active")
-    private boolean isActive;
-
     @Column(name = "points")
     private Long points;
 

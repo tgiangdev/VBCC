@@ -90,6 +90,617 @@ export enum AccountRoleEnum {
 /**
  * 
  * @export
+ * @interface ContentDisposition
+ */
+export interface ContentDisposition {
+    /**
+     * 
+     * @type {string}
+     * @memberof ContentDisposition
+     */
+    type?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContentDisposition
+     */
+    name?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContentDisposition
+     */
+    filename?: string;
+    /**
+     * 
+     * @type {ContentDispositionCharset}
+     * @memberof ContentDisposition
+     */
+    charset?: ContentDispositionCharset;
+    /**
+     * 
+     * @type {number}
+     * @memberof ContentDisposition
+     */
+    size?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContentDisposition
+     */
+    creationDate?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContentDisposition
+     */
+    modificationDate?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContentDisposition
+     */
+    readDate?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ContentDisposition
+     */
+    inline?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ContentDisposition
+     */
+    formData?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ContentDisposition
+     */
+    attachment?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface ContentDispositionCharset
+ */
+export interface ContentDispositionCharset {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ContentDispositionCharset
+     */
+    registered?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface HttpHeaders
+ */
+export interface HttpHeaders {
+    [key: string]: Array<string> | any;
+
+    /**
+     * 
+     * @type {boolean}
+     * @memberof HttpHeaders
+     */
+    empty?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeaders
+     */
+    location?: string;
+    /**
+     * 
+     * @type {HttpHeadersHost}
+     * @memberof HttpHeaders
+     */
+    host?: HttpHeadersHost;
+    /**
+     * 
+     * @type {{ [key: string]: string; }}
+     * @memberof HttpHeaders
+     */
+    all?: { [key: string]: string; };
+    /**
+     * 
+     * @type {number}
+     * @memberof HttpHeaders
+     */
+    lastModified?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof HttpHeaders
+     */
+    contentLength?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof HttpHeaders
+     */
+    date?: number;
+    /**
+     * 
+     * @type {Array<object>}
+     * @memberof HttpHeaders
+     */
+    range?: Array<object>;
+    /**
+     * 
+     * @type {Array<ContentDispositionCharset>}
+     * @memberof HttpHeaders
+     */
+    acceptCharset?: Array<ContentDispositionCharset>;
+    /**
+     * 
+     * @type {HttpHeadersContentLanguage}
+     * @memberof HttpHeaders
+     */
+    contentLanguage?: HttpHeadersContentLanguage;
+    /**
+     * 
+     * @type {Set<string>}
+     * @memberof HttpHeaders
+     */
+    allow?: Set<HttpHeadersAllowEnum>;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeaders
+     */
+    cacheControl?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeaders
+     */
+    etag?: string;
+    /**
+     * 
+     * @type {Array<MediaType>}
+     * @memberof HttpHeaders
+     */
+    acceptPatch?: Array<MediaType>;
+    /**
+     * 
+     * @type {Array<HttpHeadersAcceptLanguage>}
+     * @memberof HttpHeaders
+     */
+    acceptLanguage?: Array<HttpHeadersAcceptLanguage>;
+    /**
+     * 
+     * @type {Array<MediaType>}
+     * @memberof HttpHeaders
+     */
+    accept?: Array<MediaType>;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeaders
+     */
+    bearerAuth?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof HttpHeaders
+     */
+    expires?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeaders
+     */
+    basicAuth?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof HttpHeaders
+     */
+    ifMatch?: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof HttpHeaders
+     */
+    ifNoneMatch?: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof HttpHeaders
+     */
+    connection?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeaders
+     */
+    pragma?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof HttpHeaders
+     */
+    vary?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeaders
+     */
+    upgrade?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeaders
+     */
+    origin?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof HttpHeaders
+     */
+    accessControlExposeHeaders?: Array<string>;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof HttpHeaders
+     */
+    accessControlAllowCredentials?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof HttpHeaders
+     */
+    accessControlMaxAge?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof HttpHeaders
+     */
+    ifUnmodifiedSince?: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof HttpHeaders
+     */
+    accessControlAllowMethods?: Array<HttpHeadersAccessControlAllowMethodsEnum>;
+    /**
+     * 
+     * @type {Array<HttpHeadersContentLanguage>}
+     * @memberof HttpHeaders
+     */
+    acceptLanguageAsLocales?: Array<HttpHeadersContentLanguage>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof HttpHeaders
+     */
+    accessControlAllowHeaders?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeaders
+     */
+    accessControlRequestMethod?: HttpHeadersAccessControlRequestMethodEnum;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof HttpHeaders
+     */
+    accessControlRequestHeaders?: Array<string>;
+    /**
+     * 
+     * @type {ContentDisposition}
+     * @memberof HttpHeaders
+     */
+    contentDisposition?: ContentDisposition;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeaders
+     */
+    accessControlAllowOrigin?: string;
+    /**
+     * 
+     * @type {MediaType}
+     * @memberof HttpHeaders
+     */
+    contentType?: MediaType;
+    /**
+     * 
+     * @type {number}
+     * @memberof HttpHeaders
+     */
+    ifModifiedSince?: number;
+}
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum HttpHeadersAllowEnum {
+    Get = 'GET',
+    Head = 'HEAD',
+    Post = 'POST',
+    Put = 'PUT',
+    Patch = 'PATCH',
+    Delete = 'DELETE',
+    Options = 'OPTIONS',
+    Trace = 'TRACE'
+}
+/**
+    * @export
+    * @enum {string}
+    */
+export enum HttpHeadersAccessControlAllowMethodsEnum {
+    Get = 'GET',
+    Head = 'HEAD',
+    Post = 'POST',
+    Put = 'PUT',
+    Patch = 'PATCH',
+    Delete = 'DELETE',
+    Options = 'OPTIONS',
+    Trace = 'TRACE'
+}
+/**
+    * @export
+    * @enum {string}
+    */
+export enum HttpHeadersAccessControlRequestMethodEnum {
+    Get = 'GET',
+    Head = 'HEAD',
+    Post = 'POST',
+    Put = 'PUT',
+    Patch = 'PATCH',
+    Delete = 'DELETE',
+    Options = 'OPTIONS',
+    Trace = 'TRACE'
+}
+
+/**
+ * 
+ * @export
+ * @interface HttpHeadersAcceptLanguage
+ */
+export interface HttpHeadersAcceptLanguage {
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeadersAcceptLanguage
+     */
+    range?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof HttpHeadersAcceptLanguage
+     */
+    weight?: number;
+}
+/**
+ * 
+ * @export
+ * @interface HttpHeadersContentLanguage
+ */
+export interface HttpHeadersContentLanguage {
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeadersContentLanguage
+     */
+    language?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeadersContentLanguage
+     */
+    script?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeadersContentLanguage
+     */
+    country?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeadersContentLanguage
+     */
+    variant?: string;
+    /**
+     * 
+     * @type {Set<string>}
+     * @memberof HttpHeadersContentLanguage
+     */
+    unicodeLocaleAttributes?: Set<string>;
+    /**
+     * 
+     * @type {Set<string>}
+     * @memberof HttpHeadersContentLanguage
+     */
+    unicodeLocaleKeys?: Set<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeadersContentLanguage
+     */
+    displayLanguage?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeadersContentLanguage
+     */
+    displayScript?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeadersContentLanguage
+     */
+    displayCountry?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeadersContentLanguage
+     */
+    displayVariant?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeadersContentLanguage
+     */
+    displayName?: string;
+    /**
+     * 
+     * @type {Set<string>}
+     * @memberof HttpHeadersContentLanguage
+     */
+    extensionKeys?: Set<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeadersContentLanguage
+     */
+    iso3Language?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeadersContentLanguage
+     */
+    iso3Country?: string;
+}
+/**
+ * 
+ * @export
+ * @interface HttpHeadersHost
+ */
+export interface HttpHeadersHost {
+    /**
+     * 
+     * @type {HttpHeadersHostAddress}
+     * @memberof HttpHeadersHost
+     */
+    address?: HttpHeadersHostAddress;
+    /**
+     * 
+     * @type {number}
+     * @memberof HttpHeadersHost
+     */
+    port?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof HttpHeadersHost
+     */
+    unresolved?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeadersHost
+     */
+    hostName?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeadersHost
+     */
+    hostString?: string;
+}
+/**
+ * 
+ * @export
+ * @interface HttpHeadersHostAddress
+ */
+export interface HttpHeadersHostAddress {
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeadersHostAddress
+     */
+    canonicalHostName?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeadersHostAddress
+     */
+    hostAddress?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof HttpHeadersHostAddress
+     */
+    address?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeadersHostAddress
+     */
+    hostName?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof HttpHeadersHostAddress
+     */
+    linkLocalAddress?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof HttpHeadersHostAddress
+     */
+    multicastAddress?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof HttpHeadersHostAddress
+     */
+    anyLocalAddress?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof HttpHeadersHostAddress
+     */
+    loopbackAddress?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof HttpHeadersHostAddress
+     */
+    siteLocalAddress?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof HttpHeadersHostAddress
+     */
+    mcglobal?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof HttpHeadersHostAddress
+     */
+    mcnodeLocal?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof HttpHeadersHostAddress
+     */
+    mclinkLocal?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof HttpHeadersHostAddress
+     */
+    mcsiteLocal?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof HttpHeadersHostAddress
+     */
+    mcorgLocal?: boolean;
+}
+/**
+ * 
+ * @export
  * @interface InlineObject
  */
 export interface InlineObject {
@@ -147,6 +758,217 @@ export interface LoginPayload {
 /**
  * 
  * @export
+ * @interface MediaType
+ */
+export interface MediaType {
+    /**
+     * 
+     * @type {string}
+     * @memberof MediaType
+     */
+    type?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MediaType
+     */
+    subtype?: string;
+    /**
+     * 
+     * @type {{ [key: string]: string; }}
+     * @memberof MediaType
+     */
+    parameters?: { [key: string]: string; };
+    /**
+     * 
+     * @type {number}
+     * @memberof MediaType
+     */
+    qualityValue?: number;
+    /**
+     * 
+     * @type {ContentDispositionCharset}
+     * @memberof MediaType
+     */
+    charset?: ContentDispositionCharset;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof MediaType
+     */
+    concrete?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof MediaType
+     */
+    subtypeSuffix?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof MediaType
+     */
+    wildcardType?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof MediaType
+     */
+    wildcardSubtype?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface Pageable
+ */
+export interface Pageable {
+    /**
+     * 
+     * @type {number}
+     * @memberof Pageable
+     */
+    offset?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof Pageable
+     */
+    sort?: Sort;
+    /**
+     * 
+     * @type {number}
+     * @memberof Pageable
+     */
+    pageNumber?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof Pageable
+     */
+    pageSize?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Pageable
+     */
+    paged?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Pageable
+     */
+    unpaged?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface ResponseEntityObject
+ */
+export interface ResponseEntityObject {
+    /**
+     * 
+     * @type {{ [key: string]: Array<string>; }}
+     * @memberof ResponseEntityObject
+     */
+    headers?: { [key: string]: Array<string>; };
+    /**
+     * 
+     * @type {object}
+     * @memberof ResponseEntityObject
+     */
+    body?: object;
+    /**
+     * 
+     * @type {string}
+     * @memberof ResponseEntityObject
+     */
+    statusCode?: ResponseEntityObjectStatusCodeEnum;
+    /**
+     * 
+     * @type {number}
+     * @memberof ResponseEntityObject
+     */
+    statusCodeValue?: number;
+}
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum ResponseEntityObjectStatusCodeEnum {
+    _100Continue = '100 CONTINUE',
+    _101SwitchingProtocols = '101 SWITCHING_PROTOCOLS',
+    _102Processing = '102 PROCESSING',
+    _103Checkpoint = '103 CHECKPOINT',
+    _200Ok = '200 OK',
+    _201Created = '201 CREATED',
+    _202Accepted = '202 ACCEPTED',
+    _203NonAuthoritativeInformation = '203 NON_AUTHORITATIVE_INFORMATION',
+    _204NoContent = '204 NO_CONTENT',
+    _205ResetContent = '205 RESET_CONTENT',
+    _206PartialContent = '206 PARTIAL_CONTENT',
+    _207MultiStatus = '207 MULTI_STATUS',
+    _208AlreadyReported = '208 ALREADY_REPORTED',
+    _226ImUsed = '226 IM_USED',
+    _300MultipleChoices = '300 MULTIPLE_CHOICES',
+    _301MovedPermanently = '301 MOVED_PERMANENTLY',
+    _302Found = '302 FOUND',
+    _302MovedTemporarily = '302 MOVED_TEMPORARILY',
+    _303SeeOther = '303 SEE_OTHER',
+    _304NotModified = '304 NOT_MODIFIED',
+    _305UseProxy = '305 USE_PROXY',
+    _307TemporaryRedirect = '307 TEMPORARY_REDIRECT',
+    _308PermanentRedirect = '308 PERMANENT_REDIRECT',
+    _400BadRequest = '400 BAD_REQUEST',
+    _401Unauthorized = '401 UNAUTHORIZED',
+    _402PaymentRequired = '402 PAYMENT_REQUIRED',
+    _403Forbidden = '403 FORBIDDEN',
+    _404NotFound = '404 NOT_FOUND',
+    _405MethodNotAllowed = '405 METHOD_NOT_ALLOWED',
+    _406NotAcceptable = '406 NOT_ACCEPTABLE',
+    _407ProxyAuthenticationRequired = '407 PROXY_AUTHENTICATION_REQUIRED',
+    _408RequestTimeout = '408 REQUEST_TIMEOUT',
+    _409Conflict = '409 CONFLICT',
+    _410Gone = '410 GONE',
+    _411LengthRequired = '411 LENGTH_REQUIRED',
+    _412PreconditionFailed = '412 PRECONDITION_FAILED',
+    _413PayloadTooLarge = '413 PAYLOAD_TOO_LARGE',
+    _413RequestEntityTooLarge = '413 REQUEST_ENTITY_TOO_LARGE',
+    _414UriTooLong = '414 URI_TOO_LONG',
+    _414RequestUriTooLong = '414 REQUEST_URI_TOO_LONG',
+    _415UnsupportedMediaType = '415 UNSUPPORTED_MEDIA_TYPE',
+    _416RequestedRangeNotSatisfiable = '416 REQUESTED_RANGE_NOT_SATISFIABLE',
+    _417ExpectationFailed = '417 EXPECTATION_FAILED',
+    _418IAmATeapot = '418 I_AM_A_TEAPOT',
+    _419InsufficientSpaceOnResource = '419 INSUFFICIENT_SPACE_ON_RESOURCE',
+    _420MethodFailure = '420 METHOD_FAILURE',
+    _421DestinationLocked = '421 DESTINATION_LOCKED',
+    _422UnprocessableEntity = '422 UNPROCESSABLE_ENTITY',
+    _423Locked = '423 LOCKED',
+    _424FailedDependency = '424 FAILED_DEPENDENCY',
+    _425TooEarly = '425 TOO_EARLY',
+    _426UpgradeRequired = '426 UPGRADE_REQUIRED',
+    _428PreconditionRequired = '428 PRECONDITION_REQUIRED',
+    _429TooManyRequests = '429 TOO_MANY_REQUESTS',
+    _431RequestHeaderFieldsTooLarge = '431 REQUEST_HEADER_FIELDS_TOO_LARGE',
+    _451UnavailableForLegalReasons = '451 UNAVAILABLE_FOR_LEGAL_REASONS',
+    _500InternalServerError = '500 INTERNAL_SERVER_ERROR',
+    _501NotImplemented = '501 NOT_IMPLEMENTED',
+    _502BadGateway = '502 BAD_GATEWAY',
+    _503ServiceUnavailable = '503 SERVICE_UNAVAILABLE',
+    _504GatewayTimeout = '504 GATEWAY_TIMEOUT',
+    _505HttpVersionNotSupported = '505 HTTP_VERSION_NOT_SUPPORTED',
+    _506VariantAlsoNegotiates = '506 VARIANT_ALSO_NEGOTIATES',
+    _507InsufficientStorage = '507 INSUFFICIENT_STORAGE',
+    _508LoopDetected = '508 LOOP_DETECTED',
+    _509BandwidthLimitExceeded = '509 BANDWIDTH_LIMIT_EXCEEDED',
+    _510NotExtended = '510 NOT_EXTENDED',
+    _511NetworkAuthenticationRequired = '511 NETWORK_AUTHENTICATION_REQUIRED'
+}
+
+/**
+ * 
+ * @export
  * @interface ResponseError
  */
 export interface ResponseError {
@@ -190,68 +1012,28 @@ export interface ResponseError {
 /**
  * 
  * @export
- * @interface Student
+ * @interface Sort
  */
-export interface Student {
+export interface Sort {
     /**
      * 
-     * @type {number}
-     * @memberof Student
+     * @type {boolean}
+     * @memberof Sort
      */
-    id?: number;
+    empty?: boolean;
     /**
      * 
-     * @type {string}
-     * @memberof Student
+     * @type {boolean}
+     * @memberof Sort
      */
-    code?: string;
+    sorted?: boolean;
     /**
      * 
-     * @type {string}
-     * @memberof Student
+     * @type {boolean}
+     * @memberof Sort
      */
-    name?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof Student
-     */
-    gender?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof Student
-     */
-    dateOfBirth?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Student
-     */
-    ranking?: StudentRankingEnum;
-    /**
-     * 
-     * @type {number}
-     * @memberof Student
-     */
-    clazzId?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof Student
-     */
-    description?: string;
+    unsorted?: boolean;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum StudentRankingEnum {
-    Good = 'GOOD',
-    Medium = 'MEDIUM'
-}
-
 
 /**
  * AuthApi - axios parameter creator
@@ -355,6 +1137,892 @@ export class AuthApi extends BaseAPI {
 
 
 /**
+ * ClazzApi - axios parameter creator
+ * @export
+ */
+export const ClazzApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Create
+         * @param {object} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createClazz: async (body?: object, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/class`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteClazz: async (id: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('deleteClazz', 'id', id)
+            const localVarPath = `/api/class/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get all
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findAllClazz: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/class`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get all by pagination
+         * @param {Pageable} pageable 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findAllClazzByPagination: async (pageable: Pageable, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'pageable' is not null or undefined
+            assertParamExists('findAllClazzByPagination', 'pageable', pageable)
+            const localVarPath = `/api/class/pagination`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (pageable !== undefined) {
+                localVarQueryParameter['pageable'] = pageable;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findClazzById: async (id: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('findClazzById', 'id', id)
+            const localVarPath = `/api/class/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update
+         * @param {number} id 
+         * @param {object} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateClazz: async (id: number, body?: object, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('updateClazz', 'id', id)
+            const localVarPath = `/api/class`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * ClazzApi - functional programming interface
+ * @export
+ */
+export const ClazzApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = ClazzApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Create
+         * @param {object} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createClazz(body?: object, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseEntityObject>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createClazz(body, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Delete by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteClazz(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<number>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteClazz(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get all
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async findAllClazz(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<object>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findAllClazz(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get all by pagination
+         * @param {Pageable} pageable 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async findAllClazzByPagination(pageable: Pageable, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<object>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findAllClazzByPagination(pageable, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async findClazzById(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseEntityObject>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findClazzById(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Update
+         * @param {number} id 
+         * @param {object} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateClazz(id: number, body?: object, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseEntityObject>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateClazz(id, body, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * ClazzApi - factory interface
+ * @export
+ */
+export const ClazzApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = ClazzApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Create
+         * @param {object} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createClazz(body?: object, options?: any): AxiosPromise<ResponseEntityObject> {
+            return localVarFp.createClazz(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteClazz(id: number, options?: any): AxiosPromise<number> {
+            return localVarFp.deleteClazz(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get all
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findAllClazz(options?: any): AxiosPromise<Array<object>> {
+            return localVarFp.findAllClazz(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get all by pagination
+         * @param {Pageable} pageable 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findAllClazzByPagination(pageable: Pageable, options?: any): AxiosPromise<Array<object>> {
+            return localVarFp.findAllClazzByPagination(pageable, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findClazzById(id: number, options?: any): AxiosPromise<ResponseEntityObject> {
+            return localVarFp.findClazzById(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update
+         * @param {number} id 
+         * @param {object} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateClazz(id: number, body?: object, options?: any): AxiosPromise<ResponseEntityObject> {
+            return localVarFp.updateClazz(id, body, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * ClazzApi - object-oriented interface
+ * @export
+ * @class ClazzApi
+ * @extends {BaseAPI}
+ */
+export class ClazzApi extends BaseAPI {
+    /**
+     * 
+     * @summary Create
+     * @param {object} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ClazzApi
+     */
+    public createClazz(body?: object, options?: any) {
+        return ClazzApiFp(this.configuration).createClazz(body, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete by id
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ClazzApi
+     */
+    public deleteClazz(id: number, options?: any) {
+        return ClazzApiFp(this.configuration).deleteClazz(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get all
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ClazzApi
+     */
+    public findAllClazz(options?: any) {
+        return ClazzApiFp(this.configuration).findAllClazz(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get all by pagination
+     * @param {Pageable} pageable 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ClazzApi
+     */
+    public findAllClazzByPagination(pageable: Pageable, options?: any) {
+        return ClazzApiFp(this.configuration).findAllClazzByPagination(pageable, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get by id
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ClazzApi
+     */
+    public findClazzById(id: number, options?: any) {
+        return ClazzApiFp(this.configuration).findClazzById(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update
+     * @param {number} id 
+     * @param {object} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ClazzApi
+     */
+    public updateClazz(id: number, body?: object, options?: any) {
+        return ClazzApiFp(this.configuration).updateClazz(id, body, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * SchoolApi - axios parameter creator
+ * @export
+ */
+export const SchoolApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Create
+         * @param {object} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createSchool: async (body?: object, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/school`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteSchool: async (id: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('deleteSchool', 'id', id)
+            const localVarPath = `/api/school/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get all
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findAllSchool: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/school`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get all by pagination
+         * @param {Pageable} pageable 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findAllSchoolByPagination: async (pageable: Pageable, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'pageable' is not null or undefined
+            assertParamExists('findAllSchoolByPagination', 'pageable', pageable)
+            const localVarPath = `/api/school/pagination`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (pageable !== undefined) {
+                localVarQueryParameter['pageable'] = pageable;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findSchoolById: async (id: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('findSchoolById', 'id', id)
+            const localVarPath = `/api/school/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update
+         * @param {number} id 
+         * @param {object} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateSchool: async (id: number, body?: object, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('updateSchool', 'id', id)
+            const localVarPath = `/api/school`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * SchoolApi - functional programming interface
+ * @export
+ */
+export const SchoolApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = SchoolApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Create
+         * @param {object} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createSchool(body?: object, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseEntityObject>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createSchool(body, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Delete by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteSchool(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<number>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteSchool(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get all
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async findAllSchool(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<object>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findAllSchool(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get all by pagination
+         * @param {Pageable} pageable 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async findAllSchoolByPagination(pageable: Pageable, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<object>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findAllSchoolByPagination(pageable, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async findSchoolById(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseEntityObject>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findSchoolById(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Update
+         * @param {number} id 
+         * @param {object} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateSchool(id: number, body?: object, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseEntityObject>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateSchool(id, body, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * SchoolApi - factory interface
+ * @export
+ */
+export const SchoolApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = SchoolApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Create
+         * @param {object} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createSchool(body?: object, options?: any): AxiosPromise<ResponseEntityObject> {
+            return localVarFp.createSchool(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteSchool(id: number, options?: any): AxiosPromise<number> {
+            return localVarFp.deleteSchool(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get all
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findAllSchool(options?: any): AxiosPromise<Array<object>> {
+            return localVarFp.findAllSchool(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get all by pagination
+         * @param {Pageable} pageable 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findAllSchoolByPagination(pageable: Pageable, options?: any): AxiosPromise<Array<object>> {
+            return localVarFp.findAllSchoolByPagination(pageable, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findSchoolById(id: number, options?: any): AxiosPromise<ResponseEntityObject> {
+            return localVarFp.findSchoolById(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update
+         * @param {number} id 
+         * @param {object} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateSchool(id: number, body?: object, options?: any): AxiosPromise<ResponseEntityObject> {
+            return localVarFp.updateSchool(id, body, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * SchoolApi - object-oriented interface
+ * @export
+ * @class SchoolApi
+ * @extends {BaseAPI}
+ */
+export class SchoolApi extends BaseAPI {
+    /**
+     * 
+     * @summary Create
+     * @param {object} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SchoolApi
+     */
+    public createSchool(body?: object, options?: any) {
+        return SchoolApiFp(this.configuration).createSchool(body, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete by id
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SchoolApi
+     */
+    public deleteSchool(id: number, options?: any) {
+        return SchoolApiFp(this.configuration).deleteSchool(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get all
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SchoolApi
+     */
+    public findAllSchool(options?: any) {
+        return SchoolApiFp(this.configuration).findAllSchool(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get all by pagination
+     * @param {Pageable} pageable 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SchoolApi
+     */
+    public findAllSchoolByPagination(pageable: Pageable, options?: any) {
+        return SchoolApiFp(this.configuration).findAllSchoolByPagination(pageable, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get by id
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SchoolApi
+     */
+    public findSchoolById(id: number, options?: any) {
+        return SchoolApiFp(this.configuration).findSchoolById(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update
+     * @param {number} id 
+     * @param {object} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SchoolApi
+     */
+    public updateSchool(id: number, body?: object, options?: any) {
+        return SchoolApiFp(this.configuration).updateSchool(id, body, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
  * StudentApi - axios parameter creator
  * @export
  */
@@ -362,12 +2030,151 @@ export const StudentApiAxiosParamCreator = function (configuration?: Configurati
     return {
         /**
          * 
-         * @summary Get all student
+         * @summary Create
+         * @param {object} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findAll: async (options: any = {}): Promise<RequestArgs> => {
+        createStudent: async (body?: object, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/student`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteStudent: async (id: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('deleteStudent', 'id', id)
+            const localVarPath = `/api/student/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get all
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findAllStudent: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/student`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get all by pagination
+         * @param {Pageable} pageable 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findAllStudentByPagination: async (pageable: Pageable, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'pageable' is not null or undefined
+            assertParamExists('findAllStudentByPagination', 'pageable', pageable)
+            const localVarPath = `/api/student/pagination`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (pageable !== undefined) {
+                localVarQueryParameter['pageable'] = pageable;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findStudentById: async (id: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('findStudentById', 'id', id)
+            const localVarPath = `/api/student/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -433,14 +2240,17 @@ export const StudentApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @param {number} sleep 
+         * @summary Update
+         * @param {number} id 
+         * @param {object} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        sleep: async (sleep: number, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'sleep' is not null or undefined
-            assertParamExists('sleep', 'sleep', sleep)
-            const localVarPath = `/api/student/sleep`;
+        updateStudent: async (id: number, body?: object, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('updateStudent', 'id', id)
+            const localVarPath = `/api/student`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -448,19 +2258,18 @@ export const StudentApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            if (sleep !== undefined) {
-                localVarQueryParameter['sleep'] = sleep;
-            }
-
 
     
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -479,12 +2288,56 @@ export const StudentApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary Get all student
+         * @summary Create
+         * @param {object} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async findAll(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Student>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.findAll(options);
+        async createStudent(body?: object, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseEntityObject>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createStudent(body, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Delete by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteStudent(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<number>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteStudent(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get all
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async findAllStudent(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<object>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findAllStudent(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get all by pagination
+         * @param {Pageable} pageable 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async findAllStudentByPagination(pageable: Pageable, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<object>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findAllStudentByPagination(pageable, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async findStudentById(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseEntityObject>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findStudentById(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -501,12 +2354,14 @@ export const StudentApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {number} sleep 
+         * @summary Update
+         * @param {number} id 
+         * @param {object} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async sleep(sleep: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.sleep(sleep, options);
+        async updateStudent(id: number, body?: object, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseEntityObject>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateStudent(id, body, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -521,12 +2376,52 @@ export const StudentApiFactory = function (configuration?: Configuration, basePa
     return {
         /**
          * 
-         * @summary Get all student
+         * @summary Create
+         * @param {object} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findAll(options?: any): AxiosPromise<Array<Student>> {
-            return localVarFp.findAll(options).then((request) => request(axios, basePath));
+        createStudent(body?: object, options?: any): AxiosPromise<ResponseEntityObject> {
+            return localVarFp.createStudent(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteStudent(id: number, options?: any): AxiosPromise<number> {
+            return localVarFp.deleteStudent(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get all
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findAllStudent(options?: any): AxiosPromise<Array<object>> {
+            return localVarFp.findAllStudent(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get all by pagination
+         * @param {Pageable} pageable 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findAllStudentByPagination(pageable: Pageable, options?: any): AxiosPromise<Array<object>> {
+            return localVarFp.findAllStudentByPagination(pageable, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findStudentById(id: number, options?: any): AxiosPromise<ResponseEntityObject> {
+            return localVarFp.findStudentById(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -541,12 +2436,14 @@ export const StudentApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @param {number} sleep 
+         * @summary Update
+         * @param {number} id 
+         * @param {object} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        sleep(sleep: number, options?: any): AxiosPromise<string> {
-            return localVarFp.sleep(sleep, options).then((request) => request(axios, basePath));
+        updateStudent(id: number, body?: object, options?: any): AxiosPromise<ResponseEntityObject> {
+            return localVarFp.updateStudent(id, body, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -560,13 +2457,61 @@ export const StudentApiFactory = function (configuration?: Configuration, basePa
 export class StudentApi extends BaseAPI {
     /**
      * 
-     * @summary Get all student
+     * @summary Create
+     * @param {object} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof StudentApi
      */
-    public findAll(options?: any) {
-        return StudentApiFp(this.configuration).findAll(options).then((request) => request(this.axios, this.basePath));
+    public createStudent(body?: object, options?: any) {
+        return StudentApiFp(this.configuration).createStudent(body, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete by id
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StudentApi
+     */
+    public deleteStudent(id: number, options?: any) {
+        return StudentApiFp(this.configuration).deleteStudent(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get all
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StudentApi
+     */
+    public findAllStudent(options?: any) {
+        return StudentApiFp(this.configuration).findAllStudent(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get all by pagination
+     * @param {Pageable} pageable 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StudentApi
+     */
+    public findAllStudentByPagination(pageable: Pageable, options?: any) {
+        return StudentApiFp(this.configuration).findAllStudentByPagination(pageable, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get by id
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StudentApi
+     */
+    public findStudentById(id: number, options?: any) {
+        return StudentApiFp(this.configuration).findStudentById(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -584,13 +2529,15 @@ export class StudentApi extends BaseAPI {
 
     /**
      * 
-     * @param {number} sleep 
+     * @summary Update
+     * @param {number} id 
+     * @param {object} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof StudentApi
      */
-    public sleep(sleep: number, options?: any) {
-        return StudentApiFp(this.configuration).sleep(sleep, options).then((request) => request(this.axios, this.basePath));
+    public updateStudent(id: number, body?: object, options?: any) {
+        return StudentApiFp(this.configuration).updateStudent(id, body, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

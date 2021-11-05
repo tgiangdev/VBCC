@@ -1,9 +1,12 @@
 import { Button, message, notification } from 'antd';
 import { useIntl } from 'umi';
 import defaultSettings from '../config/defaultSettings';
+import axios from 'axios';
 
 const { pwa } = defaultSettings;
 const isHttps = document.location.protocol === 'https:';
+
+axios.defaults.withCredentials = false;
 
 const clearCache = () => {
   // remove all caches

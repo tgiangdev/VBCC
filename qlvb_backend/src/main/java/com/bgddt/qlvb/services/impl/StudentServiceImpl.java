@@ -24,11 +24,12 @@ import java.util.Iterator;
 import java.util.List;
 
 @Service
-public class StudentServiceImpl implements StudentService {
+public class StudentServiceImpl extends BaseServiceImpl implements StudentService {
     StudentRepository studentRepository;
 
     @Autowired
     public StudentServiceImpl(StudentRepository bookRepository) {
+        super(bookRepository);
         this.studentRepository = bookRepository;
     }
 
@@ -76,34 +77,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> findAll() {
-        return studentRepository.findAll();
-    }
-
-    @Override
     public List<Student> findAllByClazz(Long clazzId) throws BusinessException {
-        //throw new BusinessException("Lỗi", "Mô tả");
-        return studentRepository.findAllByClazzId(clazzId);
-    }
-
-    @Override
-    public Student findById(Long id) {
-        return studentRepository.findById(id).orElse(null);
-    }
-
-    @Override
-    public Student createStudent(Student student) {
-        return studentRepository.save(student);
-    }
-
-    @Override
-    public boolean deleteStudent(Long id) {
-        studentRepository.deleteById(id);
-        return true;
-    }
-
-    @Override
-    public Student updateStudent(Long id, Student student) {
-        return studentRepository.save(student);
+        // TODO: viết tiếp
+        return null;
     }
 }

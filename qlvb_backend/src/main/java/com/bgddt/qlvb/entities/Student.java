@@ -10,7 +10,7 @@ import java.util.Date;
 @Entity
 @Table(name = "student")
 @Data
-public class Student {
+public class Student extends AbstractAuditingEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
