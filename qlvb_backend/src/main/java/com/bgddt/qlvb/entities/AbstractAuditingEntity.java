@@ -26,7 +26,6 @@ public abstract class AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @CreatedBy
     @Column(name = "is_active")
     private boolean isActive = true;
 

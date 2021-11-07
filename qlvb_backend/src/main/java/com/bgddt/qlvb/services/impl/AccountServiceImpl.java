@@ -8,7 +8,10 @@ import com.bgddt.qlvb.common.exceptions.BusinessException;
 import com.bgddt.qlvb.entities.Account;
 import com.bgddt.qlvb.repositories.AccountRepository;
 import com.bgddt.qlvb.models.LoginPayload;
+import com.bgddt.qlvb.services.BaseService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,20 +20,32 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
 @Service
-public class AccountServiceImpl implements UserDetailsService, AccountService {
-    @Autowired
+public class AccountServiceImpl extends BaseServiceImpl implements UserDetailsService, AccountService, BaseService {
     private AccountRepository accountRepository;
-
-    @Autowired
-    AuthenticationManager authenticationManager;
-
-    @Autowired
+    private AuthenticationManager authenticationManager;
     private JwtTokenProvider tokenProvider;
+    private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    protected AccountServiceImpl(
+            AccountRepository accountRepository,
+            AuthenticationManager authenticationManager,
+            JwtTokenProvider tokenProvider,
+            PasswordEncoder passwordEncoder
+    ) {
+        super(accountRepository, Account.class);
+        this.accountRepository = accountRepository;
+        this.authenticationManager = authenticationManager;
+        this.tokenProvider = tokenProvider;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    // LOGIN
     @Override
     public AccountDetail loadUserByUsername(String username) throws UsernameNotFoundException {
         Account account = accountRepository.findByUsername(username);
@@ -40,8 +55,8 @@ public class AccountServiceImpl implements UserDetailsService, AccountService {
         return new AccountDetail(account);
     }
 
-    public UserDetails loadUserById(Long userId) {
-        return new AccountDetail(accountRepository.findById(userId).get());
+    public UserDetails loadUserById(Long userId) throws BusinessException {
+        return new AccountDetail((Account) findById(userId));
     }
 
     @Override
@@ -67,5 +82,27 @@ public class AccountServiceImpl implements UserDetailsService, AccountService {
         AccountDetail account = (AccountDetail) authentication.getPrincipal();
         String jwt = tokenProvider.generateToken(account);
         return new JwtAuthenticationResponse(jwt, account.getAccount());
+    }
+
+    // END LOGIN
+
+    // validate create
+
+
+    @Override
+    protected Object validateCreate(Object entity) {
+        Account account = (Account) entity;
+        String defaultPassword = passwordEncoder.encode("123456");
+        account.setPassword(defaultPassword);
+        return entity;
+    }
+
+    // validate update
+    @Override
+    protected Object validateUpdate(Long id, Object entity) throws BusinessException {
+        Account account = (Account) entity;
+        Account oldAccount = accountRepository.findById(id).orElseThrow(() -> new BusinessException("Tài khoản không tồn tại"));
+        account.setPassword(oldAccount.getPassword());
+        return account;
     }
 }

@@ -10,7 +10,7 @@ public interface BaseService<T> {
     List<T> findAll();
     Page<T> findAll(Pageable pageable);
     T findById(Long id) throws BusinessException;
-    T create(T entity);
+    T create(T entity) throws BusinessException;
     void delete(Long id);
-    T update(Long id, T entity);
+    T update(Long id, T entity) throws BusinessException;
 }

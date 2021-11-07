@@ -1,10 +1,12 @@
 package com.bgddt.qlvb.services.impl;
 
 import com.bgddt.qlvb.common.exceptions.BusinessException;
+import com.bgddt.qlvb.entities.Account;
 import com.bgddt.qlvb.entities.Student;
 import com.bgddt.qlvb.models.ImportRequest;
 import com.bgddt.qlvb.repositories.StudentRepository;
 import com.bgddt.qlvb.services.StudentService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -29,7 +31,7 @@ public class StudentServiceImpl extends BaseServiceImpl implements StudentServic
 
     @Autowired
     public StudentServiceImpl(StudentRepository bookRepository) {
-        super(bookRepository);
+        super(bookRepository, Student.class);
         this.studentRepository = bookRepository;
     }
 

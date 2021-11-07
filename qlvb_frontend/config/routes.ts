@@ -41,13 +41,19 @@
     name: 'admin',
     icon: 'crown',
     access: 'canAdmin',
-    component: './Admin',
+    // component: './Admin',
     routes: [
       {
         path: '/admin/sub-page',
         name: 'sub-page',
         icon: 'smile',
-        component: './Welcome',
+        component: './Admin',
+      },
+      {
+        path: '/admin/user',
+        name: 'user-manager',
+        icon: 'smile',
+        component: './Admin/User'
       },
       {
         component: './404',

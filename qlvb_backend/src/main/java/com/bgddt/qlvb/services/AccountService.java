@@ -4,6 +4,6 @@ import com.bgddt.qlvb.models.JwtAuthenticationResponse;
 import com.bgddt.qlvb.common.exceptions.BusinessException;
 import com.bgddt.qlvb.models.LoginPayload;
 
-public interface AccountService {
+public interface AccountService extends BaseService {
     JwtAuthenticationResponse login(LoginPayload payload) throws BusinessException;
 }

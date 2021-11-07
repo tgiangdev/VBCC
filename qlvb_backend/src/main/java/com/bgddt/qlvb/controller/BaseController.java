@@ -46,13 +46,13 @@ public class BaseController<T> {
 
     @Operation(summary = "Create", operationId = "create")
     @PostMapping()
-    public ResponseEntity<T> create(@RequestBody T entity) {
+    public ResponseEntity<T> create(@RequestBody T entity) throws BusinessException {
         return ResponseEntity.ok().body(service.create(entity));
     }
 
     @Operation(summary = "Update", operationId = "update")
-    @PutMapping()
-    public ResponseEntity<T> update(@PathVariable Long id, @RequestBody T entity) {
+    @PutMapping("{id}")
+    public ResponseEntity<T> update(@PathVariable Long id, @RequestBody T entity) throws BusinessException {
         return ResponseEntity.ok().body(service.update(id, entity));
     }
 

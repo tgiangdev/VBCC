@@ -23,6 +23,7 @@ export default {
   'menu.form.advanced-form': 'Advanced Form',
   'menu.list': 'List',
   'menu.import-excel': 'Nhập dữ liệu',
+  'menu.admin.user-manager': 'Quản lý người dùng',
   'menu.list.table-list': 'Dữ liệu',
   'menu.list.basic-list': 'Basic List',
   'menu.list.card-list': 'Card List',

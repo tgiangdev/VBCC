@@ -50,19 +50,7 @@ export interface Account {
      * @type {string}
      * @memberof Account
      */
-    firstName?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Account
-     */
-    lastName?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof Account
-     */
-    points?: number;
+    name?: string;
     /**
      * 
      * @type {string}
@@ -83,8 +71,8 @@ export interface Account {
     */
 export enum AccountRoleEnum {
     User = 'USER',
-    Mod = 'MOD',
-    Admin = 'ADMIN'
+    Admin = 'ADMIN',
+    System = 'SYSTEM'
 }
 
 /**
@@ -146,12 +134,6 @@ export interface ContentDisposition {
      * @type {boolean}
      * @memberof ContentDisposition
      */
-    inline?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof ContentDisposition
-     */
     formData?: boolean;
     /**
      * 
@@ -159,6 +141,12 @@ export interface ContentDisposition {
      * @memberof ContentDisposition
      */
     attachment?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ContentDisposition
+     */
+    inline?: boolean;
 }
 /**
  * 
@@ -225,6 +213,30 @@ export interface HttpHeaders {
     date?: number;
     /**
      * 
+     * @type {string}
+     * @memberof HttpHeaders
+     */
+    origin?: string;
+    /**
+     * 
+     * @type {MediaType}
+     * @memberof HttpHeaders
+     */
+    contentType?: MediaType;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof HttpHeaders
+     */
+    connection?: Array<string>;
+    /**
+     * 
+     * @type {number}
+     * @memberof HttpHeaders
+     */
+    ifModifiedSince?: number;
+    /**
+     * 
      * @type {Array<object>}
      * @memberof HttpHeaders
      */
@@ -261,10 +273,82 @@ export interface HttpHeaders {
     etag?: string;
     /**
      * 
+     * @type {Array<HttpHeadersContentLanguage>}
+     * @memberof HttpHeaders
+     */
+    acceptLanguageAsLocales?: Array<HttpHeadersContentLanguage>;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeaders
+     */
+    accessControlRequestMethod?: HttpHeadersAccessControlRequestMethodEnum;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof HttpHeaders
+     */
+    accessControlAllowHeaders?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeaders
+     */
+    accessControlAllowOrigin?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof HttpHeaders
+     */
+    ifUnmodifiedSince?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof HttpHeaders
+     */
+    accessControlMaxAge?: number;
+    /**
+     * 
+     * @type {ContentDisposition}
+     * @memberof HttpHeaders
+     */
+    contentDisposition?: ContentDisposition;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof HttpHeaders
+     */
+    accessControlRequestHeaders?: Array<string>;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof HttpHeaders
+     */
+    accessControlAllowCredentials?: boolean;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof HttpHeaders
+     */
+    accessControlAllowMethods?: Array<HttpHeadersAccessControlAllowMethodsEnum>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof HttpHeaders
+     */
+    accessControlExposeHeaders?: Array<string>;
+    /**
+     * 
      * @type {Array<MediaType>}
      * @memberof HttpHeaders
      */
     acceptPatch?: Array<MediaType>;
+    /**
+     * 
+     * @type {Array<MediaType>}
+     * @memberof HttpHeaders
+     */
+    accept?: Array<MediaType>;
     /**
      * 
      * @type {Array<HttpHeadersAcceptLanguage>}
@@ -273,10 +357,10 @@ export interface HttpHeaders {
     acceptLanguage?: Array<HttpHeadersAcceptLanguage>;
     /**
      * 
-     * @type {Array<MediaType>}
+     * @type {string}
      * @memberof HttpHeaders
      */
-    accept?: Array<MediaType>;
+    basicAuth?: string;
     /**
      * 
      * @type {string}
@@ -291,28 +375,10 @@ export interface HttpHeaders {
     expires?: number;
     /**
      * 
-     * @type {string}
-     * @memberof HttpHeaders
-     */
-    basicAuth?: string;
-    /**
-     * 
      * @type {Array<string>}
      * @memberof HttpHeaders
      */
     ifMatch?: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof HttpHeaders
-     */
-    ifNoneMatch?: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof HttpHeaders
-     */
-    connection?: Array<string>;
     /**
      * 
      * @type {string}
@@ -327,94 +393,16 @@ export interface HttpHeaders {
     vary?: Array<string>;
     /**
      * 
-     * @type {string}
-     * @memberof HttpHeaders
-     */
-    upgrade?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof HttpHeaders
-     */
-    origin?: string;
-    /**
-     * 
      * @type {Array<string>}
      * @memberof HttpHeaders
      */
-    accessControlExposeHeaders?: Array<string>;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof HttpHeaders
-     */
-    accessControlAllowCredentials?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof HttpHeaders
-     */
-    accessControlMaxAge?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof HttpHeaders
-     */
-    ifUnmodifiedSince?: number;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof HttpHeaders
-     */
-    accessControlAllowMethods?: Array<HttpHeadersAccessControlAllowMethodsEnum>;
-    /**
-     * 
-     * @type {Array<HttpHeadersContentLanguage>}
-     * @memberof HttpHeaders
-     */
-    acceptLanguageAsLocales?: Array<HttpHeadersContentLanguage>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof HttpHeaders
-     */
-    accessControlAllowHeaders?: Array<string>;
+    ifNoneMatch?: Array<string>;
     /**
      * 
      * @type {string}
      * @memberof HttpHeaders
      */
-    accessControlRequestMethod?: HttpHeadersAccessControlRequestMethodEnum;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof HttpHeaders
-     */
-    accessControlRequestHeaders?: Array<string>;
-    /**
-     * 
-     * @type {ContentDisposition}
-     * @memberof HttpHeaders
-     */
-    contentDisposition?: ContentDisposition;
-    /**
-     * 
-     * @type {string}
-     * @memberof HttpHeaders
-     */
-    accessControlAllowOrigin?: string;
-    /**
-     * 
-     * @type {MediaType}
-     * @memberof HttpHeaders
-     */
-    contentType?: MediaType;
-    /**
-     * 
-     * @type {number}
-     * @memberof HttpHeaders
-     */
-    ifModifiedSince?: number;
+    upgrade?: string;
 }
 
 /**
@@ -435,7 +423,7 @@ export enum HttpHeadersAllowEnum {
     * @export
     * @enum {string}
     */
-export enum HttpHeadersAccessControlAllowMethodsEnum {
+export enum HttpHeadersAccessControlRequestMethodEnum {
     Get = 'GET',
     Head = 'HEAD',
     Post = 'POST',
@@ -449,7 +437,7 @@ export enum HttpHeadersAccessControlAllowMethodsEnum {
     * @export
     * @enum {string}
     */
-export enum HttpHeadersAccessControlRequestMethodEnum {
+export enum HttpHeadersAccessControlAllowMethodsEnum {
     Get = 'GET',
     Head = 'HEAD',
     Post = 'POST',
@@ -1322,7 +1310,7 @@ export const ClazzApiAxiosParamCreator = function (configuration?: Configuration
         updateClazz: async (id: number, body?: object, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('updateClazz', 'id', id)
-            const localVarPath = `/api/class`
+            const localVarPath = `/api/class/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1765,7 +1753,7 @@ export const SchoolApiAxiosParamCreator = function (configuration?: Configuratio
         updateSchool: async (id: number, body?: object, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('updateSchool', 'id', id)
-            const localVarPath = `/api/school`
+            const localVarPath = `/api/school/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -2249,7 +2237,7 @@ export const StudentApiAxiosParamCreator = function (configuration?: Configurati
         updateStudent: async (id: number, body?: object, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('updateStudent', 'id', id)
-            const localVarPath = `/api/student`
+            const localVarPath = `/api/student/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -2538,6 +2526,449 @@ export class StudentApi extends BaseAPI {
      */
     public updateStudent(id: number, body?: object, options?: any) {
         return StudentApiFp(this.configuration).updateStudent(id, body, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * UserApi - axios parameter creator
+ * @export
+ */
+export const UserApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Create
+         * @param {object} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createUser: async (body?: object, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/user`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteUser: async (id: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('deleteUser', 'id', id)
+            const localVarPath = `/api/user/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get all
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findAllUser: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/user`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get all by pagination
+         * @param {Pageable} pageable 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findAllUserByPagination: async (pageable: Pageable, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'pageable' is not null or undefined
+            assertParamExists('findAllUserByPagination', 'pageable', pageable)
+            const localVarPath = `/api/user/pagination`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (pageable !== undefined) {
+                localVarQueryParameter['pageable'] = pageable;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findUserById: async (id: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('findUserById', 'id', id)
+            const localVarPath = `/api/user/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update
+         * @param {number} id 
+         * @param {object} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateUser: async (id: number, body?: object, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('updateUser', 'id', id)
+            const localVarPath = `/api/user/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * UserApi - functional programming interface
+ * @export
+ */
+export const UserApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = UserApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Create
+         * @param {object} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createUser(body?: object, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseEntityObject>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createUser(body, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Delete by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteUser(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<number>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteUser(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get all
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async findAllUser(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<object>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findAllUser(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get all by pagination
+         * @param {Pageable} pageable 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async findAllUserByPagination(pageable: Pageable, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<object>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findAllUserByPagination(pageable, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async findUserById(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseEntityObject>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findUserById(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Update
+         * @param {number} id 
+         * @param {object} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateUser(id: number, body?: object, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseEntityObject>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateUser(id, body, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * UserApi - factory interface
+ * @export
+ */
+export const UserApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = UserApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Create
+         * @param {object} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createUser(body?: object, options?: any): AxiosPromise<ResponseEntityObject> {
+            return localVarFp.createUser(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteUser(id: number, options?: any): AxiosPromise<number> {
+            return localVarFp.deleteUser(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get all
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findAllUser(options?: any): AxiosPromise<Array<object>> {
+            return localVarFp.findAllUser(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get all by pagination
+         * @param {Pageable} pageable 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findAllUserByPagination(pageable: Pageable, options?: any): AxiosPromise<Array<object>> {
+            return localVarFp.findAllUserByPagination(pageable, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findUserById(id: number, options?: any): AxiosPromise<ResponseEntityObject> {
+            return localVarFp.findUserById(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update
+         * @param {number} id 
+         * @param {object} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateUser(id: number, body?: object, options?: any): AxiosPromise<ResponseEntityObject> {
+            return localVarFp.updateUser(id, body, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * UserApi - object-oriented interface
+ * @export
+ * @class UserApi
+ * @extends {BaseAPI}
+ */
+export class UserApi extends BaseAPI {
+    /**
+     * 
+     * @summary Create
+     * @param {object} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    public createUser(body?: object, options?: any) {
+        return UserApiFp(this.configuration).createUser(body, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete by id
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    public deleteUser(id: number, options?: any) {
+        return UserApiFp(this.configuration).deleteUser(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get all
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    public findAllUser(options?: any) {
+        return UserApiFp(this.configuration).findAllUser(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get all by pagination
+     * @param {Pageable} pageable 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    public findAllUserByPagination(pageable: Pageable, options?: any) {
+        return UserApiFp(this.configuration).findAllUserByPagination(pageable, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get by id
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    public findUserById(id: number, options?: any) {
+        return UserApiFp(this.configuration).findUserById(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update
+     * @param {number} id 
+     * @param {object} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    public updateUser(id: number, body?: object, options?: any) {
+        return UserApiFp(this.configuration).updateUser(id, body, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

@@ -4,14 +4,14 @@ import { Card, Form, Upload, Button, Select } from 'antd';
 import { FileExcelOutlined, InboxOutlined } from '@ant-design/icons';
 import { ImportService } from '@/services/custom-client/ImportService';
 
+const formItemLayout = {
+    labelCol: { span: 6 },
+    wrapperCol: { span: 14 },
+};
 const ImportExcel: React.FC = () => {
     const [fileName, setFileName] = useState<string>("");
     const [file, setFile] = useState<any>();
 
-    const formItemLayout = {
-        labelCol: { span: 6 },
-        wrapperCol: { span: 14 },
-    };
     const onFinish = (values: any) => {
         console.log(values)
         const formData = new FormData();
