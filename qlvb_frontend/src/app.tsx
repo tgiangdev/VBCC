@@ -28,14 +28,6 @@ export function getInitialState(): {
   fetchUserInfo?: () => any | undefined;
 } {
   const fetchUserInfo = () => {
-    // try {
-    //   const msg = await queryCurrentUser();
-    //   return msg.data;
-    // } catch (error) {
-    //   history.push(loginPath);
-    // }
-    // return undefined;
-
     try {
       const accessToken = Cookies.get(ACCESS_TOKEN_KEY);
       const tokenData: any = jwt_decode(accessToken);
@@ -46,7 +38,6 @@ export function getInitialState(): {
     }
     return undefined;
   };
-  // 如果是登录页面，不执行
   if (history.location.pathname !== loginPath) {
     const currentUser = fetchUserInfo();
     return {
@@ -72,7 +63,6 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
     footerRender: () => <Footer />,
     onPageChange: () => {
       const { location } = history;
-      // 如果没有登录，重定向到 login
       if (!initialState?.currentUser && location.pathname !== loginPath) {
         history.push(loginPath);
       }

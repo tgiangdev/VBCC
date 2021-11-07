@@ -5,6 +5,8 @@ import com.bgddt.qlvb.common.enums.Role;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "account")
@@ -17,6 +19,7 @@ public class Account extends AbstractAuditingEntity {
     @Column(unique = true, length = 45)
     private String email;
 
+    @NotBlank(message = "Tài khoản là bắt buộc")
     @Column(nullable = false, unique = true, length = 45)
     private String username;
 
@@ -28,6 +31,7 @@ public class Account extends AbstractAuditingEntity {
     private String name;
 
 //    @ElementCollection(targetClass = Role.class)
+    @NotBlank(message = "Chức vụ là bắt buộc")
     @Column
     @Enumerated(EnumType.STRING)
     private Role role;

@@ -3,8 +3,11 @@ package com.bgddt.qlvb.entities;
 
 import com.bgddt.qlvb.common.enums.Ranking;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Entity
@@ -15,9 +18,11 @@ public class Student extends AbstractAuditingEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Mã học sinh là bắt buộc")
     @Column(nullable = false, unique = true, length = 50)
     private String code;
 
+    @NotBlank(message = "Tên học sinh là bắt buộc")
     @Column(nullable = false, unique = true, length = 50)
     private String name;
 
@@ -30,9 +35,17 @@ public class Student extends AbstractAuditingEntity{
     @Column
     private Ranking ranking;
 
-    @Column(nullable = false)
-    private Long clazzId;
+//    @NotBlank(message = "Lớp là bắt buộc")
+//    @Column(nullable = false)
+//    private Long clazzId;
 
     @Column
     private String description;
+
+    @NotBlank(message = "Lớp là bắt buộc")
+    @ManyToOne
+    @JoinColumn(name = "class_id")
+    @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode
+    @ToString.Exclude // Khoonhg sử dụng trong toString()
+    private Clazz clazz;
 }

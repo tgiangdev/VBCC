@@ -61,6 +61,24 @@
     ],
   },
   {
+    path: '/system',
+    name: 'system',
+    icon: 'crown',
+    access: 'canSystem',
+    // component: './Admin',
+    routes: [
+      {
+        path: '/system/sub-page',
+        name: 'sub-page',
+        icon: 'smile',
+        component: './Admin',
+      },
+      {
+        component: './404',
+      },
+    ],
+  },
+  {
     path: '/',
     redirect: '/welcome',
   },

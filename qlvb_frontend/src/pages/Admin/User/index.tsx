@@ -2,7 +2,7 @@ import type { Account } from '@/services/client';
 import { AccountRoleEnum, UserApi } from '@/services/client';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Button, Card, Drawer, Popconfirm, Space, Table } from 'antd';
+import { Button, Card, Drawer, Popconfirm, Space, Table, Spin } from 'antd';
 import React, { useState, useEffect } from 'react';
 import defineColumns from './columns';
 import EditFormAccount from './edit';
@@ -15,16 +15,19 @@ const User: React.FC = () => {
     const [tableData, setTableData] = useState<Account[]>([]);
     const [showEdit, setShowEdit] = useState<boolean>(false);
     const [accountEdit, setAccountEdit] = useState<Account>();
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const listRole = [{ value: 'USER', label: 'Giáo viên' }];
     if (currentUser.role === AccountRoleEnum.System) {
         listRole.push({ value: 'ADMIN', label: 'Quản trị viên' })
     }
     useEffect(() => {
+        setIsLoading(true);
         userCLient.findAllUser().then(res => {
             if (res.status === 200) {
                 setTableData(res.data)
             }
+            setIsLoading(false);
         });
     }, []);
 
@@ -95,16 +98,18 @@ const User: React.FC = () => {
     return (
         <div>
             <PageContainer>
-                <Card className="fadeInRight">
-                    <Space className="button-group">
-                        <Button onClick={handleCreate} type="primary">Thêm mới</Button>
-                    </Space>
-                    <Table
-                        dataSource={tableData}
-                        columns={columns}
-                        bordered
-                    />
-                </Card>
+                <Spin spinning={isLoading}>
+                    <Card className="fadeInRight">
+                        <Space className="button-group">
+                            <Button onClick={handleCreate} type="primary">Thêm mới</Button>
+                        </Space>
+                        <Table
+                            dataSource={tableData}
+                            columns={columns}
+                            bordered
+                        />
+                    </Card>
+                </Spin>
             </PageContainer>
             <Drawer
                 title={accountEdit ? 'Sửa thông tin' : 'Tạo mới tài khoản'}

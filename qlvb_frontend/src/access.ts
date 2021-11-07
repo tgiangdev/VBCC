@@ -4,6 +4,7 @@
 export default function access(initialState: { currentUser?: any | undefined }) {
   const { currentUser } = initialState || {};
   return {
-    canAdmin: currentUser && currentUser.role === 'ADMIN',
+    canAdmin: currentUser && ['ADMIN', 'SYSTEM'].includes(currentUser.role),
+    canSystem: currentUser && ['SYSTEM'].includes(currentUser.role)
   };
 }
