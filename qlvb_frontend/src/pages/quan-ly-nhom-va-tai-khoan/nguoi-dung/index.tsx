@@ -8,7 +8,7 @@ import defineColumns from './columns';
 import EditFormAccount from './edit';
 import { useModel } from 'umi';
 
-const User: React.FC = () => {
+const NguoiDung: React.FC = () => {
     const { initialState } = useModel('@@initialState');
     const currentUser: Account = initialState?.currentUser;
     const userCLient = new UserApi()
@@ -140,4 +140,4 @@ const User: React.FC = () => {
         </div >
     );
 };
-export default User;
+export default NguoiDung;

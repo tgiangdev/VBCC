@@ -92,7 +92,7 @@ public class AccountServiceImpl extends BaseServiceImpl implements UserDetailsSe
 
     @Override
     protected Object validateCreate(Object entity) {
-        Account account = (Account) entity;
+        AccountDTO account = (AccountDTO) entity;
         String defaultPassword = passwordEncoder.encode("123456");
         account.setPassword(defaultPassword);
         return entity;
