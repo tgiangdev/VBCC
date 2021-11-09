@@ -16,7 +16,7 @@ public class Account extends AbstractAuditingEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, length = 45)
+    @Column(length = 45)
     private String email;
 
     @NotBlank(message = "Tài khoản là bắt buộc")
@@ -31,7 +31,7 @@ public class Account extends AbstractAuditingEntity {
     private String name;
 
 //    @ElementCollection(targetClass = Role.class)
-    @NotBlank(message = "Chức vụ là bắt buộc")
+    @NotNull(message = "Chức vụ là bắt buộc")
     @Column
     @Enumerated(EnumType.STRING)
     private Role role;

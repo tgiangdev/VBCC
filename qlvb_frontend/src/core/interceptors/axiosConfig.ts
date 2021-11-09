@@ -4,7 +4,9 @@ import { notification } from 'antd';
 import Cookies from 'js-cookie';
 import proxy from '../../../config/proxy';
 import { ACCESS_TOKEN_KEY } from '../constains';
+import { history } from 'umi';
 
+const loginPath = '/user/login';
 const { REACT_APP_ENV } = process.env;
 const SERVER_PATH = proxy[REACT_APP_ENV || 'dev'];
 export const BASE_PATH = SERVER_PATH['/api/'].target.replace(/\/+$/, "");
@@ -22,12 +24,25 @@ export const axiosConfig = () => {
     axios.defaults.withCredentials = false;
     axios.defaults.headers.common = {'Authorization': accessToken }
     axios.interceptors.response.use(
-      response => response,
-      manageErrorConnection
+      handleResponse,
+      handleError
     )
 }
 
-function manageErrorConnection(err: any) {
+function handleResponse(response: any) {
+  if(response.status === 201) {
+    notification.success({
+      message: 'Lưu dữ liệu thành công'
+    })
+  } else if(response.status === 204) {
+    notification.success({
+      message: 'Xoá thành công'
+    })
+  }
+  return response;
+}
+
+function handleError(err: any) {
   if (err.response) {
     if (err.response.status === 422) {
       notification.error({
@@ -43,6 +58,11 @@ function manageErrorConnection(err: any) {
       notification.error({
         message: "Bản ghi không tồn tại"
       })
+    } else if (err.response.status === 403) {
+      notification.error({
+        message: "Quyền truy cập đã hết hạn"
+      });
+      history.push(loginPath);
     } else {
       notification.error({
         message: 'Có lỗi xảy ra',

@@ -1,6 +1,7 @@
 package com.bgddt.qlvb.services.impl;
 
 import com.bgddt.qlvb.configs.JwtTokenProvider;
+import com.bgddt.qlvb.dtos.AccountDTO;
 import com.bgddt.qlvb.models.AccountDetail;
 import com.bgddt.qlvb.models.JwtAuthenticationResponse;
 import com.bgddt.qlvb.services.AccountService;
@@ -25,7 +26,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class AccountServiceImpl extends BaseServiceImpl implements UserDetailsService, AccountService, BaseService {
+public class AccountServiceImpl extends BaseServiceImpl implements UserDetailsService, AccountService {
     private AccountRepository accountRepository;
     private AuthenticationManager authenticationManager;
     private JwtTokenProvider tokenProvider;
@@ -38,7 +39,7 @@ public class AccountServiceImpl extends BaseServiceImpl implements UserDetailsSe
             JwtTokenProvider tokenProvider,
             PasswordEncoder passwordEncoder
     ) {
-        super(accountRepository, Account.class);
+        super(accountRepository, AccountDTO.class, Account.class);
         this.accountRepository = accountRepository;
         this.authenticationManager = authenticationManager;
         this.tokenProvider = tokenProvider;
@@ -100,7 +101,7 @@ public class AccountServiceImpl extends BaseServiceImpl implements UserDetailsSe
     // validate update
     @Override
     protected Object validateUpdate(Long id, Object entity) throws BusinessException {
-        Account account = (Account) entity;
+        AccountDTO account = (AccountDTO) entity;
         Account oldAccount = accountRepository.findById(id).orElseThrow(() -> new BusinessException("Tài khoản không tồn tại"));
         account.setPassword(oldAccount.getPassword());
         return account;

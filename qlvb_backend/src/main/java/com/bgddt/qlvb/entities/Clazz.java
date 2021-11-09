@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -28,7 +29,7 @@ public class Clazz extends AbstractAuditingEntity{
     @Column
     private String description;
 
-    @NotBlank(message = "Trường là bắt buộc")
+    @NotNull(message = "Trường là bắt buộc")
     @ManyToOne
     @JoinColumn(name = "school_id")
     @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode

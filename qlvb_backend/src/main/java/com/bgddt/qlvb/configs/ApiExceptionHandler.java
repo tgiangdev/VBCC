@@ -8,7 +8,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @RestControllerAdvice
 public class ApiExceptionHandler {
@@ -24,12 +29,26 @@ public class ApiExceptionHandler {
     }
 
     /**
-     * IndexOutOfBoundsException sẽ được xử lý riêng tại đây
+     * BusinessException sẽ được xử lý riêng tại đây
      */
     @ExceptionHandler(BusinessException.class)
     @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)
     public ResponseError handleBusinessException(BusinessException ex, WebRequest request) {
         return ResponseError.businessError(ex, request);
+    }
+
+    /**
+     * ConstraintViolationException sẽ được xử lý riêng tại đây
+     */
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)
+    public ResponseError handleClassCastException(ConstraintViolationException ex, WebRequest request) {
+        List<String> errors = new ArrayList<>();
+        for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
+            errors.add(String.format("[%s]%s", violation.getPropertyPath(), violation.getMessage()));
+        }
+        BusinessException be = new BusinessException(String.join(", ", errors));
+        return ResponseError.businessError(be, request);
     }
 
 }

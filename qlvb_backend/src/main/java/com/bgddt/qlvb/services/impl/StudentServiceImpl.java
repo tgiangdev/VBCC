@@ -31,7 +31,7 @@ public class StudentServiceImpl extends BaseServiceImpl implements StudentServic
 
     @Autowired
     public StudentServiceImpl(StudentRepository bookRepository) {
-        super(bookRepository, Student.class);
+        super(bookRepository, Student.class, Student.class);
         this.studentRepository = bookRepository;
     }
 

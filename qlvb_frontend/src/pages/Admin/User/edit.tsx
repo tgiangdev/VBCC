@@ -12,7 +12,7 @@ const EditFormAccount: React.FC<Props> = (props: Props) => {
 
     const onFill = () => {
         if (props.account) {
-            formRef.current!.setFieldsValue(props.account || {});
+            formRef.current!.setFieldsValue(props.account);
         } else {
             formRef.current!.resetFields();
         }

@@ -1,5 +1,6 @@
 package com.bgddt.qlvb.services.impl;
 
+import com.bgddt.qlvb.dtos.SchoolDTO;
 import com.bgddt.qlvb.entities.School;
 import com.bgddt.qlvb.repositories.SchoolRepository;
 import com.bgddt.qlvb.services.SchoolService;
@@ -10,6 +11,6 @@ import org.springframework.stereotype.Repository;
 public class SchoolServiceImpl extends BaseServiceImpl implements SchoolService {
     @Autowired
     public SchoolServiceImpl(SchoolRepository schoolRepository) {
-        super(schoolRepository, School.class);
+        super(schoolRepository, SchoolDTO.class, School.class);
     }
 }

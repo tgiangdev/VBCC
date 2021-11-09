@@ -16,6 +16,7 @@ const User: React.FC = () => {
     const [showEdit, setShowEdit] = useState<boolean>(false);
     const [accountEdit, setAccountEdit] = useState<Account>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isSaving, setIsSaving] = useState<boolean>(false);
 
     const listRole = [{ value: 'USER', label: 'Giáo viên' }];
     if (currentUser.role === AccountRoleEnum.System) {
@@ -32,48 +33,51 @@ const User: React.FC = () => {
     }, []);
 
     const toggleShowEdit = () => {
+        if (showEdit) {
+            setAccountEdit(undefined);
+        }
         setShowEdit(!showEdit);
-        setAccountEdit(undefined);
     }
     const handleCreate = () => {
         setAccountEdit(undefined);
         toggleShowEdit();
     }
     const handleEdit = (account: Account) => {
-        console.log(account);
         toggleShowEdit();
         setAccountEdit(account);
     }
     const onEdit = (values: Account) => {
-        console.log('onEdit', values)
+        setIsSaving(true);
         if (accountEdit) {
             // update
-            console.log(accountEdit.id!);
             userCLient.updateUser(accountEdit.id!, values).then(res => {
-                if (res.status === 200) {
-                    console.log(res.data)
+                if (res.status === 201) {
                     const newAccount: any = res.data;
                     const index = tableData.findIndex(record => record.id === newAccount.id);
                     tableData.splice(index, 1, newAccount)
                     setTableData([...tableData]);
                     toggleShowEdit();
                 }
+                setIsSaving(false);
             });
         } else {
             userCLient.createUser(values).then(res => {
-                if (res.status === 200) {
-                    console.log(res.data)
+                if (res.status === 201) {
                     const newAccount: any = res.data;
                     tableData.push(newAccount)
                     setTableData([...tableData]);
                     toggleShowEdit();
                 }
+                setIsSaving(false);
             });
         }
     }
     const onDelete = (id: number) => {
-        console.log(id);
-        userCLient.deleteUser(id).then(() => setTableData(tableData.filter(r => r.id !== id)));
+        userCLient.deleteUser(id).then((resp) => {
+            if (resp.status === 204) {
+                setTableData(tableData.filter(r => r.id !== id));
+            }
+        });
     }
 
     const action = (id: number, record: Account): React.ReactNode => {
@@ -121,7 +125,7 @@ const User: React.FC = () => {
                 footer={
                     <Space>
                         <Button onClick={toggleShowEdit}>Huỷ</Button>
-                        <Button htmlType="submit" form="form-create-account" type="primary">
+                        <Button htmlType="submit" form="form-create-account" type="primary" loading={isSaving}>
                             Lưu
                         </Button>
                     </Space>
@@ -133,7 +137,7 @@ const User: React.FC = () => {
                     listRole={listRole}
                 />
             </Drawer>
-        </div>
+        </div >
     );
 };
 export default User;

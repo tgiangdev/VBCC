@@ -1,5 +1,6 @@
 package com.bgddt.qlvb.services.impl;
 
+import com.bgddt.qlvb.dtos.ClassDTO;
 import com.bgddt.qlvb.entities.Clazz;
 import com.bgddt.qlvb.repositories.ClazzRepository;
 import com.bgddt.qlvb.services.ClazzService;
@@ -12,7 +13,7 @@ public class ClazzServiceImpl extends BaseServiceImpl implements ClazzService {
 
     @Autowired
     protected ClazzServiceImpl(ClazzRepository repository) {
-        super(repository, Clazz.class);
+        super(repository, ClassDTO.class, Clazz.class);
         this.clazzRepository = repository;
     }
 }

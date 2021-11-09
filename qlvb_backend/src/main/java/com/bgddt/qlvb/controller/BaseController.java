@@ -14,8 +14,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
 
-public class BaseController<T> {
-    BaseService<T> service;
+public class BaseController<O, T> {
+    BaseService<O, T> service;
     BaseController(BaseService service) {
         this.service = service;
     }
@@ -26,40 +26,41 @@ public class BaseController<T> {
 
     @Operation(summary = "Get all", description = "", operationId = "findAll")
     @GetMapping()
-    public ResponseEntity<List<T>> findAll() {
+    public ResponseEntity<List<O>> findAll() {
         return ResponseEntity.ok().body(service.findAll());
     }
 
     @Operation(summary = "Get all by pagination", operationId = "findAllByPagination")
     @GetMapping("pagination")
-    public ResponseEntity<List<T>> findAllByPagination(Pageable pageable) {
-        Page<T> page = service.findAll(pageable);
+    public ResponseEntity<List<O>> findAllByPagination(Pageable pageable) {
+        Page<O> page = service.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        List<O> dtos = page.getContent();
+        return new ResponseEntity<>(dtos, headers, HttpStatus.OK);
     }
 
     @Operation(summary = "Get by id", operationId = "findById")
     @GetMapping("{id}")
-    public ResponseEntity<T> findById(@PathVariable Long id) throws BusinessException {
+    public ResponseEntity<O> findById(@PathVariable Long id) throws BusinessException {
         return ResponseEntity.ok().body(service.findById(id));
     }
 
     @Operation(summary = "Create", operationId = "create")
     @PostMapping()
-    public ResponseEntity<T> create(@RequestBody T entity) throws BusinessException {
-        return ResponseEntity.ok().body(service.create(entity));
+    public ResponseEntity<O> create(@RequestBody O dto) throws BusinessException {
+        return new ResponseEntity(service.create(dto), HttpStatus.CREATED);
     }
 
     @Operation(summary = "Update", operationId = "update")
     @PutMapping("{id}")
-    public ResponseEntity<T> update(@PathVariable Long id, @RequestBody T entity) throws BusinessException {
-        return ResponseEntity.ok().body(service.update(id, entity));
+    public ResponseEntity<O> update(@PathVariable Long id, @RequestBody O dto) throws BusinessException {
+        return new ResponseEntity<>(service.update(id, dto), HttpStatus.CREATED);
     }
 
     @Operation(summary = "Delete by id", operationId = "delete")
     @DeleteMapping("{id}")
     public ResponseEntity<Long> delete(@PathVariable Long id) {
         service.delete(id);
-        return new ResponseEntity<>(id, HttpStatus.OK);
+        return new ResponseEntity<>(id, HttpStatus.NO_CONTENT);
     }
 }
