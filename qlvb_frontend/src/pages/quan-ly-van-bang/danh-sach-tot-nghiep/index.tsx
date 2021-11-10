@@ -1,28 +1,40 @@
-import { Student, StudentListApi } from '@/services/client';
+import { Student, StudentList, StudentListApi, StudentListDTO } from '@/services/client';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Button, Card, Drawer, Space, Spin, Table, Select } from 'antd';
 import React, { useState, useEffect } from 'react';
 import ImportExcel from './import';
 import { ImportService } from '@/services/custom-client/ImportService';
-import { response } from '@umijs/deps/compiled/express';
+import { useModel } from 'umi';
+import { dataToSelectBox } from '@/utils';
+import columns from './columns';
 
 const DanhSachTotNghiep: React.FC = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [tableData, setTableData] = useState<Student[]>([]);
     const [showFormImport, setShowFormImport] = useState<boolean>(false);
     const [isSaving, setIsSaving] = useState<boolean>(false);
+    const { initialState } = useModel('@@initialState');
+
     const importService = new ImportService();
     const studentListClient = new StudentListApi();
+
+    const { globalData: { schoolYears } } = initialState;
+
     // init
     useEffect(() => {
         setIsLoading(true);
         studentListClient.findAllStudentList()
             .then(resp => {
                 if (resp.status === 200) {
-                    setTableData(resp.data);
+                    const studentListDTO: StudentListDTO = resp.data.length > 0 ? resp.data[0] : {};
+                    setTableData(studentListDTO.students!);
                 }
             }).finally(() => setIsLoading(false));
     }, []);
+
+    const loadStudentBySchoolYear = (schoolYearId: number | undefined) => {
+
+    }
 
     const toggleShowFormImport = () => {
         setShowFormImport(!showFormImport);
@@ -32,6 +44,7 @@ const DanhSachTotNghiep: React.FC = () => {
         importService.importExcel(payload)
             .then(resp => {
                 if (resp.status === 200) {
+                    setTableData(resp.data.students!);
                     toggleShowFormImport();
                 }
             })
@@ -53,10 +66,7 @@ const DanhSachTotNghiep: React.FC = () => {
                 // filterOption={(input, option) =>
                 //     option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                 // }
-                >
-                    <Select.Option value="jack">Jack</Select.Option>
-                    <Select.Option value="lucy">Lucy</Select.Option>
-                    <Select.Option value="tom">Tom</Select.Option>
+                > {dataToSelectBox(schoolYears, 'id', 'code')}
                 </Select>
                 </>
             }>
@@ -68,7 +78,7 @@ const DanhSachTotNghiep: React.FC = () => {
                         </Space>
                         <Table
                             dataSource={tableData}
-                            columns={[]}
+                            columns={columns}
                             bordered
                         />
                     </Card>
@@ -91,6 +101,7 @@ const DanhSachTotNghiep: React.FC = () => {
                 }
             >
                 <ImportExcel
+                    schoolYears={schoolYears}
                     onClose={toggleShowFormImport}
                     onImport={onImport}
                 />

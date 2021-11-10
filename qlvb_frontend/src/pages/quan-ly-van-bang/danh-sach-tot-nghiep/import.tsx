@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Form, Upload, Select, Input, DatePicker } from 'antd';
 import { FileExcelOutlined, InboxOutlined } from '@ant-design/icons';
-import { ImportService } from '@/services/custom-client/ImportService';
+import type { SchoolYear } from '@/services/client';
+import { dataToSelectBox } from '@/utils';
 
 const formItemLayout = {
     labelCol: { span: 6 },
@@ -40,14 +41,12 @@ const ImportExcel: React.FC<Props> = (props: Props) => {
             onFinish={onFinish}
         >
             <Form.Item
-                name="year"
+                name="schoolYearId"
                 label="Năm học"
                 rules={[{ required: true, message: 'Trường này không được để trống!' }]}
             >
                 <Select placeholder="Năm học">
-                    <Select.Option value="2020">2020-2021</Select.Option>
-                    <Select.Option value="2021">2021-2022</Select.Option>
-                    <Select.Option value="2022">2022-2023</Select.Option>
+                    {dataToSelectBox(props.schoolYears, 'id', 'code')}
                 </Select>
             </Form.Item>
             <Form.Item
@@ -116,6 +115,7 @@ const ImportExcel: React.FC<Props> = (props: Props) => {
     );
 };
 type Props = {
+    schoolYears: SchoolYear[]
     onClose: () => void,
     onImport: (payload: FormData) => void
 }

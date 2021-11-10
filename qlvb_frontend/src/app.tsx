@@ -8,7 +8,8 @@ import { BookOutlined, LinkOutlined } from '@ant-design/icons';
 import Cookies from 'js-cookie';
 import { ACCESS_TOKEN_KEY } from './core/constains';
 import jwt_decode from 'jwt-decode';
-import { SchoolApi, SchoolYearApi, SharedDirectoryApi } from './services/client';
+import { SchoolApi, SchoolYear, SchoolYearApi, SharedDirectory, SharedDirectoryApi } from './services/client';
+import { axiosConfig } from './core/interceptors/axiosConfig';
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
@@ -20,46 +21,57 @@ export const initialStateConfig = {
 /**
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
  * */
+type StoreProps = {
+  schoolYears: SchoolYear[],
+  sharedDirectory: SharedDirectory[]
+}
 export async function getInitialState(): Promise<{
   settings?: Partial<LayoutSettings>;
   currentUser?: any;
-  globalData?: any;
-  fetchUserInfo?: () => any | undefined;
+  globalData?: StoreProps;
+  fetchInitData?: () => any | undefined;
 }> {
   const fetchUserInfo = async () => {
     try {
       const accessToken = Cookies.get(ACCESS_TOKEN_KEY);
       const tokenData: any = jwt_decode(accessToken);
       const currentUser = JSON.parse(tokenData.account);
+      axiosConfig();
       return currentUser;
     } catch (error) {
       history.push(loginPath);
     }
     return undefined;
   };
-  const fetchInitData = async () => {
-    const schoolYearClient = new SchoolYearApi();
-    const sharedDirectory = new SharedDirectoryApi();
+  const fetchInitData: any = async () => {
+    try {
+      const schoolYearClient = new SchoolYearApi();
+      const sharedDirectory = new SharedDirectoryApi();
 
-    const schoolYears = await schoolYearClient.findAllSchoolYear();
-    const sharedDirectories = await sharedDirectory.findAllSharedDirectory();
-    return {
-      schoolYears,
-      sharedDirectories
+      const currentUser = await fetchUserInfo();
+      const schoolYears = await (await schoolYearClient.findAllSchoolYear()).data;
+      const sharedDirectories = await (await sharedDirectory.findAllSharedDirectory()).data;
+      const globalData = {
+        schoolYears,
+        sharedDirectories
+      };
+      return { currentUser, globalData };
+    } catch (error) {
+      history.push(loginPath);
     }
+    return undefined;
   }
   if (history.location.pathname !== loginPath) {
-    const currentUser = await fetchUserInfo();
-    const globalData = await fetchInitData();
+    const { currentUser, globalData } = await fetchInitData();
     return {
-      fetchUserInfo,
+      fetchInitData,
       currentUser,
       globalData,
       settings: {},
     };
   }
   return {
-    fetchUserInfo,
+    fetchInitData,
     settings: {},
   };
 }

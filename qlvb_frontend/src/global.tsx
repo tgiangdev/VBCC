@@ -1,11 +1,8 @@
 import { Button, message, notification } from 'antd';
 import { useIntl } from 'umi';
 import defaultSettings from '../config/defaultSettings';
-import { axiosConfig } from './core/interceptors/axiosConfig';
 const { pwa } = defaultSettings;
 const isHttps = document.location.protocol === 'https:';
-
-axiosConfig();
 
 const clearCache = () => {
   // remove all caches

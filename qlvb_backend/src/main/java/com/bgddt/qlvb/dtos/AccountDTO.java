@@ -34,5 +34,7 @@ public class AccountDTO extends AbstractAuditingEntity{
         @Enumerated(EnumType.STRING)
         private Role role;
 
-        private String type = "DTO";
+        private Long schoolId;
+
+        private String schoolName;
 }

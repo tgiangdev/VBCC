@@ -45,5 +45,6 @@ public class Account extends AbstractAuditingEntity {
     @JoinColumn(name = "school_id")
     @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode
     @ToString.Exclude // Không sử dụng trong toString()
-    private StudentList studentList;
+    @JsonIgnore
+    private School school;
 }

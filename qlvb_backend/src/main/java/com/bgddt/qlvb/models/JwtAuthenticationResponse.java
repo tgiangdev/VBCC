@@ -1,5 +1,6 @@
 package com.bgddt.qlvb.models;
 
+import com.bgddt.qlvb.dtos.AccountDTO;
 import com.bgddt.qlvb.entities.Account;
 import lombok.Data;
 
@@ -7,9 +8,9 @@ import lombok.Data;
 public class JwtAuthenticationResponse {
     private String accessToken;
     private String tokenType;
-    private Account account;
+    private AccountDTO account;
 
-    public JwtAuthenticationResponse(String accessToken, Account account) {
+    public JwtAuthenticationResponse(String accessToken, AccountDTO account) {
         this.accessToken = accessToken;
         this.tokenType = "Bearer";
         this.account = account;

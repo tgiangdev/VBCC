@@ -1,12 +1,14 @@
 package com.bgddt.qlvb.services.impl;
 
 import com.bgddt.qlvb.common.exceptions.BusinessException;
+import com.bgddt.qlvb.dtos.AccountDTO;
 import com.bgddt.qlvb.dtos.StudentDTO;
 import com.bgddt.qlvb.dtos.StudentListDTO;
 import com.bgddt.qlvb.entities.Student;
 import com.bgddt.qlvb.entities.StudentList;
 import com.bgddt.qlvb.models.ImportRequest;
 import com.bgddt.qlvb.repositories.StudentListRepository;
+import com.bgddt.qlvb.services.AccountService;
 import com.bgddt.qlvb.services.BaseService;
 import com.bgddt.qlvb.services.StudentListService;
 import com.bgddt.qlvb.services.StudentService;
@@ -21,6 +23,7 @@ import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -35,14 +38,25 @@ public class StudentListServiceImpl extends BaseServiceImpl<StudentListDTO, Stud
     StudentService studentService;
 
     @Autowired
+    AccountService accountService;
+
+    @Autowired
     protected StudentListServiceImpl(StudentListRepository repository) {
         super(repository, StudentListDTO.class, StudentList.class);
         this.studentListRepository = repository;
     }
 
     @Override
+    @Transactional
     public StudentListDTO importExcel(MultipartFile file, StudentListDTO studentListDTO) throws IOException, BusinessException {
         int sheetIndex = 0, rowIndex = 1;
+        // Validate Header
+        AccountDTO accountDTO = accountService.getCurrentAccount();
+        if(accountDTO.getSchoolId() == null) {
+            throw new BusinessException("Tài khoản của bạn chưa được gắn với Trường học nào");
+        }
+        studentListDTO.setSchoolId(accountDTO.getSchoolId());
+
         Workbook workbook = new XSSFWorkbook(file.getInputStream());
         FormulaEvaluator evaluator = workbook.getCreationHelper().createFormulaEvaluator();
         Sheet sheet = workbook.getSheetAt(sheetIndex);
@@ -78,8 +92,8 @@ public class StudentListServiceImpl extends BaseServiceImpl<StudentListDTO, Stud
         // Save to database
         StudentListDTO studentListDTOSaved = create(studentListDTO);
 
-        for(int i = 1; i<=studentDTOS.size();i++) {
-            studentDTOS.get(i).setStudentIndex((long)i);
+        for(int i = 0; i<studentDTOS.size();i++) {
+            studentDTOS.get(i).setStudentIndex((long)i + 1);
             studentDTOS.get(i).setStudentListId(studentListDTOSaved.getId());
         }
         studentDTOS = studentService.createAll(studentDTOS);

@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 public class RowInfo {
     public static CellInfo[] DEFINE_COLUMNS_EXCEL = {
+            CellInfo.key("code").text(20),
             CellInfo.key("firstName").text(32),
             CellInfo.key("lastName").text(32),
             CellInfo.key("gender").keyValue(1, Arrays.asList("0", "1")),

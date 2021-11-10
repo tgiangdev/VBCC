@@ -1,5 +1,6 @@
 package com.bgddt.qlvb.models;
 
+import com.bgddt.qlvb.dtos.AccountDTO;
 import com.bgddt.qlvb.entities.Account;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +13,7 @@ import java.util.*;
 @Data
 @AllArgsConstructor
 public class AccountDetail implements UserDetails {
-    private Account account;
+    private AccountDTO account;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

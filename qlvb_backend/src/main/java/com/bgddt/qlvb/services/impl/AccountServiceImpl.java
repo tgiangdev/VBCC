@@ -50,11 +50,12 @@ public class AccountServiceImpl extends BaseServiceImpl<AccountDTO, Account> imp
         if (account == null) {
             throw new UsernameNotFoundException(username);
         }
-        return new AccountDetail(account);
+        return new AccountDetail(entityToDto(account));
     }
 
     public UserDetails loadUserById(Long userId) throws BusinessException {
-        return new AccountDetail(accountRepository.findById(userId).orElseThrow(() -> new BusinessException("User không tồn tại")));
+        Account account = accountRepository.findById(userId).orElseThrow(() -> new BusinessException("User không tồn tại"));
+        return new AccountDetail(entityToDto(account));
     }
 
     @Override
@@ -80,6 +81,13 @@ public class AccountServiceImpl extends BaseServiceImpl<AccountDTO, Account> imp
         AccountDetail account = (AccountDetail) authentication.getPrincipal();
         String jwt = tokenProvider.generateToken(account);
         return new JwtAuthenticationResponse(jwt, account.getAccount());
+    }
+
+    @Override
+    public AccountDTO getCurrentAccount() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AccountDetail account = (AccountDetail) authentication.getPrincipal();
+        return account.getAccount();
     }
 
     // END LOGIN

@@ -45,4 +45,6 @@ public class StudentDTO {
     private Double points;
 
     private Long studentListId;
+
+    private String studentListSchoolYearCode;
 }

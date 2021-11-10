@@ -5,7 +5,6 @@ import { history, useModel } from 'umi';
 import { stringify } from 'querystring';
 import HeaderDropdown from '../HeaderDropdown';
 import styles from './index.less';
-import { outLogin } from '@/services/ant-design-pro/api';
 import type { MenuInfo } from 'rc-menu/lib/interface';
 import Cookies from 'js-cookie';
 import { ACCESS_TOKEN_KEY } from '@/core/constains';
@@ -40,7 +39,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
     (event: MenuInfo) => {
       const { key } = event;
       if (key === 'logout') {
-        setInitialState((s) => ({ ...s, currentUser: undefined }));
+        setInitialState((s) => ({ ...s, currentUser: undefined, globalData: undefined }));
         loginOut();
         return;
       }
@@ -60,7 +59,6 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
       />
     </span>
   );
-  console.log('initialState', initialState)
   if (!initialState) {
     return loading;
   }
