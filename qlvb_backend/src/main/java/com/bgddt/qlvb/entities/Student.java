@@ -8,6 +8,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -18,34 +19,43 @@ public class Student extends AbstractAuditingEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
+    private Long studentIndex;
+
     @NotBlank(message = "Mã học sinh là bắt buộc")
     @Column(nullable = false, unique = true, length = 50)
     private String code;
 
-    @NotBlank(message = "Tên học sinh là bắt buộc")
-    @Column(nullable = false, unique = true, length = 50)
-    private String name;
+    @NotBlank(message = "Họ học sinh là bắt buộc")
+    @Column(nullable = false, unique = true, length = 50, columnDefinition = "nvarchar(32)")
+    private String firstName;
 
-    @Column(columnDefinition = "integer default 2")
-    private int gender;
+    @NotBlank(message = "Tên học sinh là bắt buộc")
+    @Column(nullable = false, unique = true, length = 50, columnDefinition = "nvarchar(32)")
+    private String lastName;
+
+    @Column
+    private String gender;
 
     @Column
     private Date dateOfBirth;
 
     @Column
-    private Ranking ranking;
-
-//    @NotBlank(message = "Lớp là bắt buộc")
-//    @Column(nullable = false)
-//    private Long clazzId;
+    private String nationId;
 
     @Column
-    private String description;
+    private String trainingTypeId;
 
-    @NotBlank(message = "Lớp là bắt buộc")
-    @ManyToOne
-    @JoinColumn(name = "class_id")
+    @Column
+    private Long graduationGradingId;
+
+    @Column
+    private Double points;
+
+    @NotNull(message = "Danh sách là bắt buộc")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "student_list_id")
     @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode
-    @ToString.Exclude // Khoonhg sử dụng trong toString()
-    private Clazz clazz;
+    @ToString.Exclude // Không sử dụng trong toString()
+    private StudentList studentList;
 }

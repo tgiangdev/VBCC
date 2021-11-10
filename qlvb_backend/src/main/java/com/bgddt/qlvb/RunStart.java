@@ -20,12 +20,11 @@ public class RunStart implements CommandLineRunner {
         // Khi chương trình chạy
         // Insert vào csdl một user.
 //        Account user = new Account();
-//        user.setUsername("Admin");
+//        user.setUsername("System");
 //        user.setEmail("tgiangdev@gmail.com");
 //        user.setActive(true);
-//        user.setFirstName("Giang");
-//        user.setLastName("Trường");
-//        user.setRole(Role.ADMIN);
+//        user.setName("Trường Giang");
+//        user.setRole(Role.SYSTEM);
 //        user.setPassword(passwordEncoder.encode("123456"));
 //        user.setCreatedBy("System");
 //        accountRepository.save(user);

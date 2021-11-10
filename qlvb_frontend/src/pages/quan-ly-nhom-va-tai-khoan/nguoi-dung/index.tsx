@@ -33,9 +33,6 @@ const NguoiDung: React.FC = () => {
     }, []);
 
     const toggleShowEdit = () => {
-        if (showEdit) {
-            setAccountEdit(undefined);
-        }
         setShowEdit(!showEdit);
     }
     const handleCreate = () => {

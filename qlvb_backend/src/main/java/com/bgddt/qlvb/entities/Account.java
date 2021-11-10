@@ -3,6 +3,8 @@ package com.bgddt.qlvb.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.bgddt.qlvb.common.enums.Role;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -27,8 +29,10 @@ public class Account extends AbstractAuditingEntity {
     @JsonIgnore
     private String password;
 
-    @Column(length = 50)
+    @Column(length = 50, columnDefinition = "nvarchar(64)")
     private String name;
+
+
 
 //    @ElementCollection(targetClass = Role.class)
     @NotNull(message = "Chức vụ là bắt buộc")
@@ -36,4 +40,10 @@ public class Account extends AbstractAuditingEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+//    @NotNull(message = "Danh sách là bắt buộc")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "school_id")
+    @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode
+    @ToString.Exclude // Không sử dụng trong toString()
+    private StudentList studentList;
 }

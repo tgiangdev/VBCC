@@ -1,13 +1,13 @@
 package com.bgddt.qlvb.controller;
 
 import com.bgddt.qlvb.common.exceptions.BusinessException;
-import com.bgddt.qlvb.entities.School;
-import com.bgddt.qlvb.services.BaseService;
+import com.bgddt.qlvb.entities.SharedDirectory;
+import com.bgddt.qlvb.services.SharedDirectoryService;
+import com.bgddt.qlvb.services.StudentListService;
 import com.bgddt.qlvb.utils.PaginationUtil;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -18,53 +18,56 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
 
-public abstract class BaseController<O, T> {
-    BaseService<O, T> service;
-    BaseController(BaseService service) {
-        this.service = service;
-    }
+@Tag(name = "SharedDirectory")
+@RestController
+@RequestMapping("/api/shared-directory")
+public class SharedDirectoryController implements IBaseController<SharedDirectory> {
+    @Autowired
+    private SharedDirectoryService service;
 
-//    @ApiResponse(content = @Content(schema = @Schema(implementation = classOfDto)))
+    @Override
     @Operation(summary = "Get all", description = "", operationId = "findAll")
     @GetMapping()
-    public ResponseEntity<List<O>> findAll() {
+    public ResponseEntity<List<SharedDirectory>> findAll() {
         return ResponseEntity.ok().body(service.findAll());
     }
 
+    @Override
     @Operation(summary = "Get all by pagination", operationId = "findAllByPagination")
     @GetMapping("pagination")
-    public ResponseEntity<List<O>> findAllByPagination(Pageable pageable) {
-        Page<O> page = service.findAll(pageable);
+    public ResponseEntity<List<SharedDirectory>> findAllByPagination(Pageable pageable) {
+        Page<SharedDirectory> page = service.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-        List<O> dtos = page.getContent();
+        List<SharedDirectory> dtos = page.getContent();
         return new ResponseEntity<>(dtos, headers, HttpStatus.OK);
     }
 
+    @Override
     @Operation(summary = "Get by id", operationId = "findById")
     @GetMapping("{id}")
-    public ResponseEntity<O> findById(@PathVariable Long id) throws BusinessException {
-        return ResponseEntity.ok().body(service.findById(id));
+    public ResponseEntity<SharedDirectory> findById(@PathVariable Long id) throws BusinessException {
+        return new ResponseEntity(service.findById(id), HttpStatus.OK);
     }
 
+    @Override
     @Operation(summary = "Create", operationId = "create")
     @PostMapping()
-    public ResponseEntity<O> create(@RequestBody O dto) throws BusinessException {
+    public ResponseEntity<SharedDirectory> create(@RequestBody SharedDirectory dto) throws BusinessException {
         return new ResponseEntity(service.create(dto), HttpStatus.CREATED);
     }
 
+    @Override
     @Operation(summary = "Update", operationId = "update")
     @PutMapping("{id}")
-    public ResponseEntity<O> update(@PathVariable Long id, @RequestBody O dto) throws BusinessException {
+    public ResponseEntity<SharedDirectory> update(@PathVariable Long id, @RequestBody SharedDirectory dto) throws BusinessException {
         return new ResponseEntity(service.update(id, dto), HttpStatus.CREATED);
     }
 
+    @Override
     @Operation(summary = "Delete by id", operationId = "delete")
     @DeleteMapping("{id}")
     public ResponseEntity<Long> delete(@PathVariable Long id) {
         service.delete(id);
         return new ResponseEntity<>(id, HttpStatus.NO_CONTENT);
     }
-
-    @GetMapping("generate")
-    public abstract void generateDto(O dto);
 }

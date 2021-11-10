@@ -4,17 +4,15 @@ import type { RunTimeLayoutConfig } from 'umi';
 import { history } from 'umi';
 import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
-import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
 import { BookOutlined, LinkOutlined } from '@ant-design/icons';
 import Cookies from 'js-cookie';
 import { ACCESS_TOKEN_KEY } from './core/constains';
 import jwt_decode from 'jwt-decode';
-import { JwtAuthenticationResponse } from './services/client';
+import { SchoolApi, SchoolYearApi, SharedDirectoryApi } from './services/client';
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
 
-/** 获取用户信息比较慢的时候会展示一个 loading */
 export const initialStateConfig = {
   loading: <PageLoading />,
 };
@@ -22,12 +20,13 @@ export const initialStateConfig = {
 /**
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
  * */
-export function getInitialState(): {
+export async function getInitialState(): Promise<{
   settings?: Partial<LayoutSettings>;
   currentUser?: any;
+  globalData?: any;
   fetchUserInfo?: () => any | undefined;
-} {
-  const fetchUserInfo = () => {
+}> {
+  const fetchUserInfo = async () => {
     try {
       const accessToken = Cookies.get(ACCESS_TOKEN_KEY);
       const tokenData: any = jwt_decode(accessToken);
@@ -38,11 +37,24 @@ export function getInitialState(): {
     }
     return undefined;
   };
+  const fetchInitData = async () => {
+    const schoolYearClient = new SchoolYearApi();
+    const sharedDirectory = new SharedDirectoryApi();
+
+    const schoolYears = await schoolYearClient.findAllSchoolYear();
+    const sharedDirectories = await sharedDirectory.findAllSharedDirectory();
+    return {
+      schoolYears,
+      sharedDirectories
+    }
+  }
   if (history.location.pathname !== loginPath) {
-    const currentUser = fetchUserInfo();
+    const currentUser = await fetchUserInfo();
+    const globalData = await fetchInitData();
     return {
       fetchUserInfo,
       currentUser,
+      globalData,
       settings: {},
     };
   }

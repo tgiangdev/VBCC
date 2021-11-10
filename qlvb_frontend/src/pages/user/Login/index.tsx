@@ -2,40 +2,23 @@ import {
   LockOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { Alert, message } from 'antd';
 import React, { useState } from 'react';
-import { useIntl, history, FormattedMessage, useModel } from 'umi';
+import { history, FormattedMessage, useModel } from 'umi';
 import Footer from '@/components/Footer';
-import { login } from '@/services/ant-design-pro/api';
 import { Form, Input, Button, Checkbox } from 'antd';
 import styles from './index.less';
-import { AuthApi, LoginPayload } from '@/services/client';
 import { ACCESS_TOKEN_KEY } from '@/core/constains';
 import Cookies from 'js-cookie';
-
-const LoginMessage: React.FC<{
-  content: string;
-}> = ({ content }) => (
-  <Alert
-    style={{
-      marginBottom: 24,
-    }}
-    message={content}
-    type="error"
-    showIcon
-  />
-);
+import type { LoginPayload } from '@/services/client';
+import { AuthApi } from '@/services/client';
 
 const Login: React.FC = () => {
-  const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
   const { initialState, setInitialState } = useModel('@@initialState');
   const [isLogging, setIsLogging] = useState<boolean>(false);
 
-  const intl = useIntl();
 
   const fetchUserInfo = async () => {
     const userInfo = await initialState?.fetchUserInfo?.();
-    console.log('userInfo', userInfo)
     if (userInfo) {
       await setInitialState((s) => ({
         ...s,
@@ -51,12 +34,6 @@ const Login: React.FC = () => {
       const msg: any = await authApi.login({ ...values });
       console.log(msg);
       if (msg.status === 200) {
-        // const defaultLoginSuccessMessage = intl.formatMessage({
-        //   id: 'pages.login.success',
-        //   defaultMessage: '登录成功！',
-        // });
-        // message.success(defaultLoginSuccessMessage);
-        console.log(msg.data)
         Cookies.set(ACCESS_TOKEN_KEY, msg.data.accessToken);
 
         await fetchUserInfo();
@@ -66,18 +43,11 @@ const Login: React.FC = () => {
         history.push(redirect || '/');
         return;
       }
-      setUserLoginState(msg);
       setIsLogging(false);
     } catch (error) {
-      // const defaultLoginFailureMessage = intl.formatMessage({
-      //   id: 'pages.login.failure',
-      //   defaultMessage: '登录失败，请重试！',
-      // });
-      // message.error(defaultLoginFailureMessage);
       setIsLogging(false);
     }
   };
-  const { status, type: loginType } = userLoginState;
 
   return (
     <div className={styles.container}>
@@ -89,20 +59,10 @@ const Login: React.FC = () => {
           name="login-form"
           initialValues={{ remember: true }}
           onFinish={handleSubmit}
-          // onFinishFailed={onFinishFailed}
           autoComplete="off"
           className={styles.form_login}
         >
           <div className={styles.title}>ĐĂNG NHẬP</div>
-
-          {status === 'error' && loginType === 'account' && (
-            <LoginMessage
-              content={intl.formatMessage({
-                id: 'pages.login.accountLogin.errorMessage',
-                defaultMessage: '账户或密码错误(admin/ant.design)',
-              })}
-            />
-          )}
           <Form.Item
             name="username"
             rules={[{ required: true, message: 'Please input your username!' }]}
@@ -136,9 +96,7 @@ const Login: React.FC = () => {
                 <FormattedMessage id="pages.login.forgotPassword" defaultMessage="忘记密码" />
               </a>
             </Form.Item>
-
           </div>
-
         </Form>
       </div>
       <Footer />

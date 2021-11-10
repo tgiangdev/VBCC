@@ -22,11 +22,26 @@ public class School extends AbstractAuditingEntity{
     private String code;
 
     @NotBlank(message = "Tên trường là bắt buộc")
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 128, columnDefinition = "nvarchar(128)")
     private String name;
 
     @Column
+    private String prefix;
+
+    @Column
+    private String schoolTypeId;
+
+    @Column
     private String address;
+
+    @Column
+    private String provinceId;
+
+    @Column
+    private String phone;
+
+    @Column
+    private String email;
 
     @Column
     private String description;
@@ -35,5 +50,5 @@ public class School extends AbstractAuditingEntity{
     @OneToMany(mappedBy = "school", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode
     @ToString.Exclude // Khoonhg sử dụng trong toString()
-    private List<Clazz> clazzList;
+    private List<StudentList> studentList;
 }

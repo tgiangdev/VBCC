@@ -44,7 +44,7 @@ export interface Account {
      * @type {string}
      * @memberof Account
      */
-    username?: string;
+    username: string;
     /**
      * 
      * @type {string}
@@ -56,7 +56,13 @@ export interface Account {
      * @type {string}
      * @memberof Account
      */
-    role?: AccountRoleEnum;
+    role: AccountRoleEnum;
+    /**
+     * 
+     * @type {StudentList}
+     * @memberof Account
+     */
+    studentList?: StudentList;
     /**
      * 
      * @type {boolean}
@@ -70,6 +76,66 @@ export interface Account {
     * @enum {string}
     */
 export enum AccountRoleEnum {
+    User = 'USER',
+    Admin = 'ADMIN',
+    System = 'SYSTEM'
+}
+
+/**
+ * 
+ * @export
+ * @interface AccountDTO
+ */
+export interface AccountDTO {
+    /**
+     * 
+     * @type {number}
+     * @memberof AccountDTO
+     */
+    id?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof AccountDTO
+     */
+    email?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AccountDTO
+     */
+    username: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AccountDTO
+     */
+    name?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AccountDTO
+     */
+    role: AccountDTORoleEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof AccountDTO
+     */
+    type?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof AccountDTO
+     */
+    active?: boolean;
+}
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum AccountDTORoleEnum {
     User = 'USER',
     Admin = 'ADMIN',
     System = 'SYSTEM'
@@ -134,13 +200,13 @@ export interface ContentDisposition {
      * @type {boolean}
      * @memberof ContentDisposition
      */
-    formData?: boolean;
+    attachment?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof ContentDisposition
      */
-    attachment?: boolean;
+    formData?: boolean;
     /**
      * 
      * @type {boolean}
@@ -213,22 +279,10 @@ export interface HttpHeaders {
     date?: number;
     /**
      * 
-     * @type {string}
-     * @memberof HttpHeaders
-     */
-    origin?: string;
-    /**
-     * 
      * @type {MediaType}
      * @memberof HttpHeaders
      */
     contentType?: MediaType;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof HttpHeaders
-     */
-    connection?: Array<string>;
     /**
      * 
      * @type {number}
@@ -273,52 +327,10 @@ export interface HttpHeaders {
     etag?: string;
     /**
      * 
-     * @type {Array<HttpHeadersContentLanguage>}
-     * @memberof HttpHeaders
-     */
-    acceptLanguageAsLocales?: Array<HttpHeadersContentLanguage>;
-    /**
-     * 
-     * @type {string}
-     * @memberof HttpHeaders
-     */
-    accessControlRequestMethod?: HttpHeadersAccessControlRequestMethodEnum;
-    /**
-     * 
      * @type {Array<string>}
      * @memberof HttpHeaders
      */
-    accessControlAllowHeaders?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof HttpHeaders
-     */
-    accessControlAllowOrigin?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof HttpHeaders
-     */
-    ifUnmodifiedSince?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof HttpHeaders
-     */
-    accessControlMaxAge?: number;
-    /**
-     * 
-     * @type {ContentDisposition}
-     * @memberof HttpHeaders
-     */
-    contentDisposition?: ContentDisposition;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof HttpHeaders
-     */
-    accessControlRequestHeaders?: Array<string>;
+    accessControlAllowMethods?: Array<HttpHeadersAccessControlAllowMethodsEnum>;
     /**
      * 
      * @type {boolean}
@@ -330,13 +342,55 @@ export interface HttpHeaders {
      * @type {Array<string>}
      * @memberof HttpHeaders
      */
-    accessControlAllowMethods?: Array<HttpHeadersAccessControlAllowMethodsEnum>;
+    accessControlExposeHeaders?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeaders
+     */
+    accessControlRequestMethod?: HttpHeadersAccessControlRequestMethodEnum;
+    /**
+     * 
+     * @type {number}
+     * @memberof HttpHeaders
+     */
+    ifUnmodifiedSince?: number;
+    /**
+     * 
+     * @type {ContentDisposition}
+     * @memberof HttpHeaders
+     */
+    contentDisposition?: ContentDisposition;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeaders
+     */
+    accessControlAllowOrigin?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof HttpHeaders
+     */
+    accessControlMaxAge?: number;
     /**
      * 
      * @type {Array<string>}
      * @memberof HttpHeaders
      */
-    accessControlExposeHeaders?: Array<string>;
+    accessControlAllowHeaders?: Array<string>;
+    /**
+     * 
+     * @type {Array<HttpHeadersContentLanguage>}
+     * @memberof HttpHeaders
+     */
+    acceptLanguageAsLocales?: Array<HttpHeadersContentLanguage>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof HttpHeaders
+     */
+    accessControlRequestHeaders?: Array<string>;
     /**
      * 
      * @type {Array<MediaType>}
@@ -345,28 +399,16 @@ export interface HttpHeaders {
     acceptPatch?: Array<MediaType>;
     /**
      * 
-     * @type {Array<MediaType>}
-     * @memberof HttpHeaders
-     */
-    accept?: Array<MediaType>;
-    /**
-     * 
      * @type {Array<HttpHeadersAcceptLanguage>}
      * @memberof HttpHeaders
      */
     acceptLanguage?: Array<HttpHeadersAcceptLanguage>;
     /**
      * 
-     * @type {string}
+     * @type {Array<MediaType>}
      * @memberof HttpHeaders
      */
-    basicAuth?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof HttpHeaders
-     */
-    bearerAuth?: string;
+    accept?: Array<MediaType>;
     /**
      * 
      * @type {number}
@@ -378,19 +420,31 @@ export interface HttpHeaders {
      * @type {Array<string>}
      * @memberof HttpHeaders
      */
+    connection?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeaders
+     */
+    basicAuth?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof HttpHeaders
+     */
     ifMatch?: Array<string>;
     /**
      * 
      * @type {string}
      * @memberof HttpHeaders
      */
-    pragma?: string;
+    bearerAuth?: string;
     /**
      * 
-     * @type {Array<string>}
+     * @type {string}
      * @memberof HttpHeaders
      */
-    vary?: Array<string>;
+    pragma?: string;
     /**
      * 
      * @type {Array<string>}
@@ -403,6 +457,18 @@ export interface HttpHeaders {
      * @memberof HttpHeaders
      */
     upgrade?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof HttpHeaders
+     */
+    vary?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpHeaders
+     */
+    origin?: string;
 }
 
 /**
@@ -423,7 +489,7 @@ export enum HttpHeadersAllowEnum {
     * @export
     * @enum {string}
     */
-export enum HttpHeadersAccessControlRequestMethodEnum {
+export enum HttpHeadersAccessControlAllowMethodsEnum {
     Get = 'GET',
     Head = 'HEAD',
     Post = 'POST',
@@ -437,7 +503,7 @@ export enum HttpHeadersAccessControlRequestMethodEnum {
     * @export
     * @enum {string}
     */
-export enum HttpHeadersAccessControlAllowMethodsEnum {
+export enum HttpHeadersAccessControlRequestMethodEnum {
     Get = 'GET',
     Head = 'HEAD',
     Post = 'POST',
@@ -775,22 +841,10 @@ export interface MediaType {
     qualityValue?: number;
     /**
      * 
-     * @type {ContentDispositionCharset}
-     * @memberof MediaType
-     */
-    charset?: ContentDispositionCharset;
-    /**
-     * 
      * @type {boolean}
      * @memberof MediaType
      */
     concrete?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof MediaType
-     */
-    subtypeSuffix?: string;
     /**
      * 
      * @type {boolean}
@@ -803,6 +857,18 @@ export interface MediaType {
      * @memberof MediaType
      */
     wildcardSubtype?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof MediaType
+     */
+    subtypeSuffix?: string;
+    /**
+     * 
+     * @type {ContentDispositionCharset}
+     * @memberof MediaType
+     */
+    charset?: ContentDispositionCharset;
 }
 /**
  * 
@@ -839,13 +905,13 @@ export interface Pageable {
      * @type {boolean}
      * @memberof Pageable
      */
-    paged?: boolean;
+    unpaged?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof Pageable
      */
-    unpaged?: boolean;
+    paged?: boolean;
 }
 /**
  * 
@@ -1000,6 +1066,184 @@ export interface ResponseError {
 /**
  * 
  * @export
+ * @interface School
+ */
+export interface School {
+    /**
+     * 
+     * @type {number}
+     * @memberof School
+     */
+    id?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof School
+     */
+    code: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof School
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof School
+     */
+    prefix?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof School
+     */
+    schoolTypeId?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof School
+     */
+    address?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof School
+     */
+    provinceId?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof School
+     */
+    phone?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof School
+     */
+    email?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof School
+     */
+    description?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof School
+     */
+    active?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface SchoolDTO
+ */
+export interface SchoolDTO {
+    /**
+     * 
+     * @type {number}
+     * @memberof SchoolDTO
+     */
+    id?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SchoolDTO
+     */
+    code: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SchoolDTO
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SchoolDTO
+     */
+    address?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SchoolDTO
+     */
+    description?: string;
+}
+/**
+ * 
+ * @export
+ * @interface SchoolYear
+ */
+export interface SchoolYear {
+    /**
+     * 
+     * @type {number}
+     * @memberof SchoolYear
+     */
+    id?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SchoolYear
+     */
+    code: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SchoolYear
+     */
+    startSubmissionOn: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SchoolYear
+     */
+    endSubmissionOn: string;
+}
+/**
+ * 
+ * @export
+ * @interface SharedDirectory
+ */
+export interface SharedDirectory {
+    /**
+     * 
+     * @type {number}
+     * @memberof SharedDirectory
+     */
+    id?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SharedDirectory
+     */
+    type?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SharedDirectory
+     */
+    code?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SharedDirectory
+     */
+    name?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SharedDirectory
+     */
+    description?: string;
+}
+/**
+ * 
+ * @export
  * @interface Sort
  */
 export interface Sort {
@@ -1021,6 +1265,249 @@ export interface Sort {
      * @memberof Sort
      */
     unsorted?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface StudentDTO
+ */
+export interface StudentDTO {
+    /**
+     * 
+     * @type {number}
+     * @memberof StudentDTO
+     */
+    id?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof StudentDTO
+     */
+    studentIndex?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof StudentDTO
+     */
+    code: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StudentDTO
+     */
+    firstName: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StudentDTO
+     */
+    lastName: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StudentDTO
+     */
+    gender?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StudentDTO
+     */
+    dateOfBirth?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StudentDTO
+     */
+    nationId?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StudentDTO
+     */
+    trainingTypeId?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof StudentDTO
+     */
+    graduationGradingId?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof StudentDTO
+     */
+    points?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof StudentDTO
+     */
+    studentListId?: number;
+}
+/**
+ * 
+ * @export
+ * @interface StudentList
+ */
+export interface StudentList {
+    /**
+     * 
+     * @type {number}
+     * @memberof StudentList
+     */
+    id?: number;
+    /**
+     * 
+     * @type {SchoolYear}
+     * @memberof StudentList
+     */
+    schoolYear: SchoolYear;
+    /**
+     * 
+     * @type {School}
+     * @memberof StudentList
+     */
+    school: School;
+    /**
+     * 
+     * @type {string}
+     * @memberof StudentList
+     */
+    decisionNumber: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StudentList
+     */
+    dateOfDecision: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StudentList
+     */
+    graduationExam: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StudentList
+     */
+    graduationCourse: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StudentList
+     */
+    status?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StudentList
+     */
+    publishedOn?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StudentList
+     */
+    approvedOn?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StudentList
+     */
+    approvedFeedback?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof StudentList
+     */
+    active?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface StudentListDTO
+ */
+export interface StudentListDTO {
+    /**
+     * 
+     * @type {number}
+     * @memberof StudentListDTO
+     */
+    id?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof StudentListDTO
+     */
+    schoolYearId: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof StudentListDTO
+     */
+    schoolId: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof StudentListDTO
+     */
+    schoolName: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StudentListDTO
+     */
+    decisionNumber: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StudentListDTO
+     */
+    dateOfDecision: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StudentListDTO
+     */
+    graduationExam: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StudentListDTO
+     */
+    graduationCourse: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StudentListDTO
+     */
+    status?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StudentListDTO
+     */
+    publishedOn?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StudentListDTO
+     */
+    approvedOn?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StudentListDTO
+     */
+    approvedFeedback?: string;
+    /**
+     * 
+     * @type {Array<StudentDTO>}
+     * @memberof StudentListDTO
+     */
+    students?: Array<StudentDTO>;
 }
 
 /**
@@ -1120,449 +1607,6 @@ export class AuthApi extends BaseAPI {
      */
     public login(loginPayload?: LoginPayload, options?: any) {
         return AuthApiFp(this.configuration).login(loginPayload, options).then((request) => request(this.axios, this.basePath));
-    }
-}
-
-
-/**
- * ClazzApi - axios parameter creator
- * @export
- */
-export const ClazzApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * 
-         * @summary Create
-         * @param {object} [body] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createClazz: async (body?: object, options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/class`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Delete by id
-         * @param {number} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteClazz: async (id: number, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('deleteClazz', 'id', id)
-            const localVarPath = `/api/class/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Get all
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        findAllClazz: async (options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/class`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Get all by pagination
-         * @param {Pageable} pageable 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        findAllClazzByPagination: async (pageable: Pageable, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'pageable' is not null or undefined
-            assertParamExists('findAllClazzByPagination', 'pageable', pageable)
-            const localVarPath = `/api/class/pagination`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (pageable !== undefined) {
-                localVarQueryParameter['pageable'] = pageable;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Get by id
-         * @param {number} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        findClazzById: async (id: number, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('findClazzById', 'id', id)
-            const localVarPath = `/api/class/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Update
-         * @param {number} id 
-         * @param {object} [body] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateClazz: async (id: number, body?: object, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('updateClazz', 'id', id)
-            const localVarPath = `/api/class/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
-};
-
-/**
- * ClazzApi - functional programming interface
- * @export
- */
-export const ClazzApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = ClazzApiAxiosParamCreator(configuration)
-    return {
-        /**
-         * 
-         * @summary Create
-         * @param {object} [body] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async createClazz(body?: object, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseEntityObject>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createClazz(body, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Delete by id
-         * @param {number} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async deleteClazz(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<number>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteClazz(id, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Get all
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async findAllClazz(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<object>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.findAllClazz(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Get all by pagination
-         * @param {Pageable} pageable 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async findAllClazzByPagination(pageable: Pageable, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<object>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.findAllClazzByPagination(pageable, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Get by id
-         * @param {number} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async findClazzById(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseEntityObject>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.findClazzById(id, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Update
-         * @param {number} id 
-         * @param {object} [body] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async updateClazz(id: number, body?: object, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseEntityObject>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateClazz(id, body, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-    }
-};
-
-/**
- * ClazzApi - factory interface
- * @export
- */
-export const ClazzApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = ClazzApiFp(configuration)
-    return {
-        /**
-         * 
-         * @summary Create
-         * @param {object} [body] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createClazz(body?: object, options?: any): AxiosPromise<ResponseEntityObject> {
-            return localVarFp.createClazz(body, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Delete by id
-         * @param {number} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteClazz(id: number, options?: any): AxiosPromise<number> {
-            return localVarFp.deleteClazz(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Get all
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        findAllClazz(options?: any): AxiosPromise<Array<object>> {
-            return localVarFp.findAllClazz(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Get all by pagination
-         * @param {Pageable} pageable 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        findAllClazzByPagination(pageable: Pageable, options?: any): AxiosPromise<Array<object>> {
-            return localVarFp.findAllClazzByPagination(pageable, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Get by id
-         * @param {number} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        findClazzById(id: number, options?: any): AxiosPromise<ResponseEntityObject> {
-            return localVarFp.findClazzById(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Update
-         * @param {number} id 
-         * @param {object} [body] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateClazz(id: number, body?: object, options?: any): AxiosPromise<ResponseEntityObject> {
-            return localVarFp.updateClazz(id, body, options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
- * ClazzApi - object-oriented interface
- * @export
- * @class ClazzApi
- * @extends {BaseAPI}
- */
-export class ClazzApi extends BaseAPI {
-    /**
-     * 
-     * @summary Create
-     * @param {object} [body] 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ClazzApi
-     */
-    public createClazz(body?: object, options?: any) {
-        return ClazzApiFp(this.configuration).createClazz(body, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Delete by id
-     * @param {number} id 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ClazzApi
-     */
-    public deleteClazz(id: number, options?: any) {
-        return ClazzApiFp(this.configuration).deleteClazz(id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Get all
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ClazzApi
-     */
-    public findAllClazz(options?: any) {
-        return ClazzApiFp(this.configuration).findAllClazz(options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Get all by pagination
-     * @param {Pageable} pageable 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ClazzApi
-     */
-    public findAllClazzByPagination(pageable: Pageable, options?: any) {
-        return ClazzApiFp(this.configuration).findAllClazzByPagination(pageable, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Get by id
-     * @param {number} id 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ClazzApi
-     */
-    public findClazzById(id: number, options?: any) {
-        return ClazzApiFp(this.configuration).findClazzById(id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Update
-     * @param {number} id 
-     * @param {object} [body] 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ClazzApi
-     */
-    public updateClazz(id: number, body?: object, options?: any) {
-        return ClazzApiFp(this.configuration).updateClazz(id, body, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -1744,6 +1788,42 @@ export const SchoolApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
+         * @param {SchoolDTO} dto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        generateDto2: async (dto: SchoolDTO, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dto' is not null or undefined
+            assertParamExists('generateDto2', 'dto', dto)
+            const localVarPath = `/api/school/generate`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (dto !== undefined) {
+                localVarQueryParameter['dto'] = dto;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Update
          * @param {number} id 
          * @param {object} [body] 
@@ -1846,6 +1926,16 @@ export const SchoolApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {SchoolDTO} dto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async generateDto2(dto: SchoolDTO, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.generateDto2(dto, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @summary Update
          * @param {number} id 
          * @param {object} [body] 
@@ -1914,6 +2004,15 @@ export const SchoolApiFactory = function (configuration?: Configuration, basePat
          */
         findSchoolById(id: number, options?: any): AxiosPromise<ResponseEntityObject> {
             return localVarFp.findSchoolById(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {SchoolDTO} dto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        generateDto2(dto: SchoolDTO, options?: any): AxiosPromise<void> {
+            return localVarFp.generateDto2(dto, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1997,6 +2096,17 @@ export class SchoolApi extends BaseAPI {
 
     /**
      * 
+     * @param {SchoolDTO} dto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SchoolApi
+     */
+    public generateDto2(dto: SchoolDTO, options?: any) {
+        return SchoolApiFp(this.configuration).generateDto2(dto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Update
      * @param {number} id 
      * @param {object} [body] 
@@ -2006,6 +2116,892 @@ export class SchoolApi extends BaseAPI {
      */
     public updateSchool(id: number, body?: object, options?: any) {
         return SchoolApiFp(this.configuration).updateSchool(id, body, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * SchoolYearApi - axios parameter creator
+ * @export
+ */
+export const SchoolYearApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Create
+         * @param {SchoolYear} [schoolYear] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createSchoolYear: async (schoolYear?: SchoolYear, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/school-year`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(schoolYear, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteSchoolYear: async (id: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('deleteSchoolYear', 'id', id)
+            const localVarPath = `/api/school-year/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get all
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findAllSchoolYear: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/school-year`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get all by pagination
+         * @param {Pageable} pageable 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findAllSchoolYearByPagination: async (pageable: Pageable, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'pageable' is not null or undefined
+            assertParamExists('findAllSchoolYearByPagination', 'pageable', pageable)
+            const localVarPath = `/api/school-year/pagination`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (pageable !== undefined) {
+                localVarQueryParameter['pageable'] = pageable;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findSchoolYearById: async (id: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('findSchoolYearById', 'id', id)
+            const localVarPath = `/api/school-year/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update
+         * @param {number} id 
+         * @param {SchoolYear} [schoolYear] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateSchoolYear: async (id: number, schoolYear?: SchoolYear, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('updateSchoolYear', 'id', id)
+            const localVarPath = `/api/school-year/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(schoolYear, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * SchoolYearApi - functional programming interface
+ * @export
+ */
+export const SchoolYearApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = SchoolYearApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Create
+         * @param {SchoolYear} [schoolYear] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createSchoolYear(schoolYear?: SchoolYear, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SchoolYear>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createSchoolYear(schoolYear, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Delete by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteSchoolYear(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<number>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteSchoolYear(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get all
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async findAllSchoolYear(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SchoolYear>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findAllSchoolYear(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get all by pagination
+         * @param {Pageable} pageable 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async findAllSchoolYearByPagination(pageable: Pageable, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SchoolYear>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findAllSchoolYearByPagination(pageable, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async findSchoolYearById(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SchoolYear>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findSchoolYearById(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Update
+         * @param {number} id 
+         * @param {SchoolYear} [schoolYear] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateSchoolYear(id: number, schoolYear?: SchoolYear, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SchoolYear>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateSchoolYear(id, schoolYear, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * SchoolYearApi - factory interface
+ * @export
+ */
+export const SchoolYearApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = SchoolYearApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Create
+         * @param {SchoolYear} [schoolYear] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createSchoolYear(schoolYear?: SchoolYear, options?: any): AxiosPromise<SchoolYear> {
+            return localVarFp.createSchoolYear(schoolYear, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteSchoolYear(id: number, options?: any): AxiosPromise<number> {
+            return localVarFp.deleteSchoolYear(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get all
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findAllSchoolYear(options?: any): AxiosPromise<Array<SchoolYear>> {
+            return localVarFp.findAllSchoolYear(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get all by pagination
+         * @param {Pageable} pageable 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findAllSchoolYearByPagination(pageable: Pageable, options?: any): AxiosPromise<Array<SchoolYear>> {
+            return localVarFp.findAllSchoolYearByPagination(pageable, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findSchoolYearById(id: number, options?: any): AxiosPromise<SchoolYear> {
+            return localVarFp.findSchoolYearById(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update
+         * @param {number} id 
+         * @param {SchoolYear} [schoolYear] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateSchoolYear(id: number, schoolYear?: SchoolYear, options?: any): AxiosPromise<SchoolYear> {
+            return localVarFp.updateSchoolYear(id, schoolYear, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * SchoolYearApi - object-oriented interface
+ * @export
+ * @class SchoolYearApi
+ * @extends {BaseAPI}
+ */
+export class SchoolYearApi extends BaseAPI {
+    /**
+     * 
+     * @summary Create
+     * @param {SchoolYear} [schoolYear] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SchoolYearApi
+     */
+    public createSchoolYear(schoolYear?: SchoolYear, options?: any) {
+        return SchoolYearApiFp(this.configuration).createSchoolYear(schoolYear, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete by id
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SchoolYearApi
+     */
+    public deleteSchoolYear(id: number, options?: any) {
+        return SchoolYearApiFp(this.configuration).deleteSchoolYear(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get all
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SchoolYearApi
+     */
+    public findAllSchoolYear(options?: any) {
+        return SchoolYearApiFp(this.configuration).findAllSchoolYear(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get all by pagination
+     * @param {Pageable} pageable 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SchoolYearApi
+     */
+    public findAllSchoolYearByPagination(pageable: Pageable, options?: any) {
+        return SchoolYearApiFp(this.configuration).findAllSchoolYearByPagination(pageable, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get by id
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SchoolYearApi
+     */
+    public findSchoolYearById(id: number, options?: any) {
+        return SchoolYearApiFp(this.configuration).findSchoolYearById(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update
+     * @param {number} id 
+     * @param {SchoolYear} [schoolYear] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SchoolYearApi
+     */
+    public updateSchoolYear(id: number, schoolYear?: SchoolYear, options?: any) {
+        return SchoolYearApiFp(this.configuration).updateSchoolYear(id, schoolYear, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * SharedDirectoryApi - axios parameter creator
+ * @export
+ */
+export const SharedDirectoryApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Create
+         * @param {SharedDirectory} [sharedDirectory] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createSharedDirectory: async (sharedDirectory?: SharedDirectory, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/shared-directory`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(sharedDirectory, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteSharedDirectory: async (id: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('deleteSharedDirectory', 'id', id)
+            const localVarPath = `/api/shared-directory/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get all
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findAllSharedDirectory: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/shared-directory`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get all by pagination
+         * @param {Pageable} pageable 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findAllSharedDirectoryByPagination: async (pageable: Pageable, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'pageable' is not null or undefined
+            assertParamExists('findAllSharedDirectoryByPagination', 'pageable', pageable)
+            const localVarPath = `/api/shared-directory/pagination`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (pageable !== undefined) {
+                localVarQueryParameter['pageable'] = pageable;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findSharedDirectoryById: async (id: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('findSharedDirectoryById', 'id', id)
+            const localVarPath = `/api/shared-directory/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update
+         * @param {number} id 
+         * @param {SharedDirectory} [sharedDirectory] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateSharedDirectory: async (id: number, sharedDirectory?: SharedDirectory, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('updateSharedDirectory', 'id', id)
+            const localVarPath = `/api/shared-directory/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(sharedDirectory, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * SharedDirectoryApi - functional programming interface
+ * @export
+ */
+export const SharedDirectoryApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = SharedDirectoryApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Create
+         * @param {SharedDirectory} [sharedDirectory] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createSharedDirectory(sharedDirectory?: SharedDirectory, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SharedDirectory>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createSharedDirectory(sharedDirectory, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Delete by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteSharedDirectory(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<number>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteSharedDirectory(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get all
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async findAllSharedDirectory(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SharedDirectory>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findAllSharedDirectory(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get all by pagination
+         * @param {Pageable} pageable 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async findAllSharedDirectoryByPagination(pageable: Pageable, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SharedDirectory>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findAllSharedDirectoryByPagination(pageable, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async findSharedDirectoryById(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SharedDirectory>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findSharedDirectoryById(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Update
+         * @param {number} id 
+         * @param {SharedDirectory} [sharedDirectory] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateSharedDirectory(id: number, sharedDirectory?: SharedDirectory, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SharedDirectory>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateSharedDirectory(id, sharedDirectory, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * SharedDirectoryApi - factory interface
+ * @export
+ */
+export const SharedDirectoryApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = SharedDirectoryApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Create
+         * @param {SharedDirectory} [sharedDirectory] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createSharedDirectory(sharedDirectory?: SharedDirectory, options?: any): AxiosPromise<SharedDirectory> {
+            return localVarFp.createSharedDirectory(sharedDirectory, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteSharedDirectory(id: number, options?: any): AxiosPromise<number> {
+            return localVarFp.deleteSharedDirectory(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get all
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findAllSharedDirectory(options?: any): AxiosPromise<Array<SharedDirectory>> {
+            return localVarFp.findAllSharedDirectory(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get all by pagination
+         * @param {Pageable} pageable 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findAllSharedDirectoryByPagination(pageable: Pageable, options?: any): AxiosPromise<Array<SharedDirectory>> {
+            return localVarFp.findAllSharedDirectoryByPagination(pageable, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findSharedDirectoryById(id: number, options?: any): AxiosPromise<SharedDirectory> {
+            return localVarFp.findSharedDirectoryById(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update
+         * @param {number} id 
+         * @param {SharedDirectory} [sharedDirectory] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateSharedDirectory(id: number, sharedDirectory?: SharedDirectory, options?: any): AxiosPromise<SharedDirectory> {
+            return localVarFp.updateSharedDirectory(id, sharedDirectory, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * SharedDirectoryApi - object-oriented interface
+ * @export
+ * @class SharedDirectoryApi
+ * @extends {BaseAPI}
+ */
+export class SharedDirectoryApi extends BaseAPI {
+    /**
+     * 
+     * @summary Create
+     * @param {SharedDirectory} [sharedDirectory] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SharedDirectoryApi
+     */
+    public createSharedDirectory(sharedDirectory?: SharedDirectory, options?: any) {
+        return SharedDirectoryApiFp(this.configuration).createSharedDirectory(sharedDirectory, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete by id
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SharedDirectoryApi
+     */
+    public deleteSharedDirectory(id: number, options?: any) {
+        return SharedDirectoryApiFp(this.configuration).deleteSharedDirectory(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get all
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SharedDirectoryApi
+     */
+    public findAllSharedDirectory(options?: any) {
+        return SharedDirectoryApiFp(this.configuration).findAllSharedDirectory(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get all by pagination
+     * @param {Pageable} pageable 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SharedDirectoryApi
+     */
+    public findAllSharedDirectoryByPagination(pageable: Pageable, options?: any) {
+        return SharedDirectoryApiFp(this.configuration).findAllSharedDirectoryByPagination(pageable, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get by id
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SharedDirectoryApi
+     */
+    public findSharedDirectoryById(id: number, options?: any) {
+        return SharedDirectoryApiFp(this.configuration).findSharedDirectoryById(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update
+     * @param {number} id 
+     * @param {SharedDirectory} [sharedDirectory] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SharedDirectoryApi
+     */
+    public updateSharedDirectory(id: number, sharedDirectory?: SharedDirectory, options?: any) {
+        return SharedDirectoryApiFp(this.configuration).updateSharedDirectory(id, sharedDirectory, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -2187,16 +3183,14 @@ export const StudentApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary Import excel student
-         * @param {string} info 
-         * @param {InlineObject} [inlineObject] 
+         * @param {StudentDTO} dto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        importExcel: async (info: string, inlineObject?: InlineObject, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'info' is not null or undefined
-            assertParamExists('importExcel', 'info', info)
-            const localVarPath = `/api/student/import`;
+        generateDto: async (dto: StudentDTO, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dto' is not null or undefined
+            assertParamExists('generateDto', 'dto', dto)
+            const localVarPath = `/api/student/generate`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -2204,22 +3198,19 @@ export const StudentApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            if (info !== undefined) {
-                localVarQueryParameter['info'] = info;
+            if (dto !== undefined) {
+                localVarQueryParameter['dto'] = dto;
             }
 
 
     
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -2330,14 +3321,12 @@ export const StudentApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Import excel student
-         * @param {string} info 
-         * @param {InlineObject} [inlineObject] 
+         * @param {StudentDTO} dto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async importExcel(info: string, inlineObject?: InlineObject, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.importExcel(info, inlineObject, options);
+        async generateDto(dto: StudentDTO, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.generateDto(dto, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -2413,14 +3402,12 @@ export const StudentApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary Import excel student
-         * @param {string} info 
-         * @param {InlineObject} [inlineObject] 
+         * @param {StudentDTO} dto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        importExcel(info: string, inlineObject?: InlineObject, options?: any): AxiosPromise<string> {
-            return localVarFp.importExcel(info, inlineObject, options).then((request) => request(axios, basePath));
+        generateDto(dto: StudentDTO, options?: any): AxiosPromise<void> {
+            return localVarFp.generateDto(dto, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2504,15 +3491,13 @@ export class StudentApi extends BaseAPI {
 
     /**
      * 
-     * @summary Import excel student
-     * @param {string} info 
-     * @param {InlineObject} [inlineObject] 
+     * @param {StudentDTO} dto 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof StudentApi
      */
-    public importExcel(info: string, inlineObject?: InlineObject, options?: any) {
-        return StudentApiFp(this.configuration).importExcel(info, inlineObject, options).then((request) => request(this.axios, this.basePath));
+    public generateDto(dto: StudentDTO, options?: any) {
+        return StudentApiFp(this.configuration).generateDto(dto, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -2526,6 +3511,526 @@ export class StudentApi extends BaseAPI {
      */
     public updateStudent(id: number, body?: object, options?: any) {
         return StudentApiFp(this.configuration).updateStudent(id, body, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * StudentListApi - axios parameter creator
+ * @export
+ */
+export const StudentListApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Create
+         * @param {StudentListDTO} [studentListDTO] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createStudentList: async (studentListDTO?: StudentListDTO, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/student-list`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(studentListDTO, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteStudentList: async (id: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('deleteStudentList', 'id', id)
+            const localVarPath = `/api/student-list/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get all
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findAllStudentList: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/student-list`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get all by pagination
+         * @param {Pageable} pageable 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findAllStudentListByPagination: async (pageable: Pageable, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'pageable' is not null or undefined
+            assertParamExists('findAllStudentListByPagination', 'pageable', pageable)
+            const localVarPath = `/api/student-list/pagination`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (pageable !== undefined) {
+                localVarQueryParameter['pageable'] = pageable;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findStudentListById: async (id: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('findStudentListById', 'id', id)
+            const localVarPath = `/api/student-list/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Import excel student
+         * @param {string} info 
+         * @param {InlineObject} [inlineObject] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        importExcel: async (info: string, inlineObject?: InlineObject, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'info' is not null or undefined
+            assertParamExists('importExcel', 'info', info)
+            const localVarPath = `/api/student-list/import`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (info !== undefined) {
+                localVarQueryParameter['info'] = info;
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update
+         * @param {number} id 
+         * @param {StudentListDTO} [studentListDTO] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateStudentList: async (id: number, studentListDTO?: StudentListDTO, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('updateStudentList', 'id', id)
+            const localVarPath = `/api/student-list/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(studentListDTO, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * StudentListApi - functional programming interface
+ * @export
+ */
+export const StudentListApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = StudentListApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Create
+         * @param {StudentListDTO} [studentListDTO] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createStudentList(studentListDTO?: StudentListDTO, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StudentListDTO>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createStudentList(studentListDTO, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Delete by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteStudentList(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<number>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteStudentList(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get all
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async findAllStudentList(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<StudentListDTO>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findAllStudentList(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get all by pagination
+         * @param {Pageable} pageable 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async findAllStudentListByPagination(pageable: Pageable, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<StudentListDTO>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findAllStudentListByPagination(pageable, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async findStudentListById(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StudentListDTO>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findStudentListById(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Import excel student
+         * @param {string} info 
+         * @param {InlineObject} [inlineObject] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async importExcel(info: string, inlineObject?: InlineObject, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.importExcel(info, inlineObject, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Update
+         * @param {number} id 
+         * @param {StudentListDTO} [studentListDTO] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateStudentList(id: number, studentListDTO?: StudentListDTO, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StudentListDTO>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateStudentList(id, studentListDTO, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * StudentListApi - factory interface
+ * @export
+ */
+export const StudentListApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = StudentListApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Create
+         * @param {StudentListDTO} [studentListDTO] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createStudentList(studentListDTO?: StudentListDTO, options?: any): AxiosPromise<StudentListDTO> {
+            return localVarFp.createStudentList(studentListDTO, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteStudentList(id: number, options?: any): AxiosPromise<number> {
+            return localVarFp.deleteStudentList(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get all
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findAllStudentList(options?: any): AxiosPromise<Array<StudentListDTO>> {
+            return localVarFp.findAllStudentList(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get all by pagination
+         * @param {Pageable} pageable 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findAllStudentListByPagination(pageable: Pageable, options?: any): AxiosPromise<Array<StudentListDTO>> {
+            return localVarFp.findAllStudentListByPagination(pageable, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findStudentListById(id: number, options?: any): AxiosPromise<StudentListDTO> {
+            return localVarFp.findStudentListById(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Import excel student
+         * @param {string} info 
+         * @param {InlineObject} [inlineObject] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        importExcel(info: string, inlineObject?: InlineObject, options?: any): AxiosPromise<string> {
+            return localVarFp.importExcel(info, inlineObject, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update
+         * @param {number} id 
+         * @param {StudentListDTO} [studentListDTO] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateStudentList(id: number, studentListDTO?: StudentListDTO, options?: any): AxiosPromise<StudentListDTO> {
+            return localVarFp.updateStudentList(id, studentListDTO, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * StudentListApi - object-oriented interface
+ * @export
+ * @class StudentListApi
+ * @extends {BaseAPI}
+ */
+export class StudentListApi extends BaseAPI {
+    /**
+     * 
+     * @summary Create
+     * @param {StudentListDTO} [studentListDTO] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StudentListApi
+     */
+    public createStudentList(studentListDTO?: StudentListDTO, options?: any) {
+        return StudentListApiFp(this.configuration).createStudentList(studentListDTO, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete by id
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StudentListApi
+     */
+    public deleteStudentList(id: number, options?: any) {
+        return StudentListApiFp(this.configuration).deleteStudentList(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get all
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StudentListApi
+     */
+    public findAllStudentList(options?: any) {
+        return StudentListApiFp(this.configuration).findAllStudentList(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get all by pagination
+     * @param {Pageable} pageable 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StudentListApi
+     */
+    public findAllStudentListByPagination(pageable: Pageable, options?: any) {
+        return StudentListApiFp(this.configuration).findAllStudentListByPagination(pageable, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get by id
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StudentListApi
+     */
+    public findStudentListById(id: number, options?: any) {
+        return StudentListApiFp(this.configuration).findStudentListById(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Import excel student
+     * @param {string} info 
+     * @param {InlineObject} [inlineObject] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StudentListApi
+     */
+    public importExcel(info: string, inlineObject?: InlineObject, options?: any) {
+        return StudentListApiFp(this.configuration).importExcel(info, inlineObject, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update
+     * @param {number} id 
+     * @param {StudentListDTO} [studentListDTO] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StudentListApi
+     */
+    public updateStudentList(id: number, studentListDTO?: StudentListDTO, options?: any) {
+        return StudentListApiFp(this.configuration).updateStudentList(id, studentListDTO, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -2707,6 +4212,42 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
         },
         /**
          * 
+         * @param {AccountDTO} dto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        generateDto1: async (dto: AccountDTO, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dto' is not null or undefined
+            assertParamExists('generateDto1', 'dto', dto)
+            const localVarPath = `/api/user/generate`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (dto !== undefined) {
+                localVarQueryParameter['dto'] = dto;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Update
          * @param {number} id 
          * @param {object} [body] 
@@ -2809,6 +4350,16 @@ export const UserApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {AccountDTO} dto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async generateDto1(dto: AccountDTO, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.generateDto1(dto, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @summary Update
          * @param {number} id 
          * @param {object} [body] 
@@ -2877,6 +4428,15 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          */
         findUserById(id: number, options?: any): AxiosPromise<ResponseEntityObject> {
             return localVarFp.findUserById(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {AccountDTO} dto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        generateDto1(dto: AccountDTO, options?: any): AxiosPromise<void> {
+            return localVarFp.generateDto1(dto, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2956,6 +4516,17 @@ export class UserApi extends BaseAPI {
      */
     public findUserById(id: number, options?: any) {
         return UserApiFp(this.configuration).findUserById(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {AccountDTO} dto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    public generateDto1(dto: AccountDTO, options?: any) {
+        return UserApiFp(this.configuration).generateDto1(dto, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

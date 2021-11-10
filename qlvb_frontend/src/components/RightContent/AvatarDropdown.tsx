@@ -60,7 +60,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
       />
     </span>
   );
-
+  console.log('initialState', initialState)
   if (!initialState) {
     return loading;
   }

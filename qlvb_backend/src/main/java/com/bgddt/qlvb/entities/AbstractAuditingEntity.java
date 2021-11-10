@@ -35,9 +35,9 @@ public abstract class AbstractAuditingEntity implements Serializable {
     private String createdBy;
 
     @CreatedDate
-    @Column(name = "created_date", updatable = false)
+    @Column(name = "created_on", updatable = false)
     @JsonIgnore
-    private Date createdDate = new Date();
+    private Date createdOn = new Date();
 
     @LastModifiedBy
     @Column(name = "updated_by", length = 50)
@@ -45,8 +45,8 @@ public abstract class AbstractAuditingEntity implements Serializable {
     private String updatedBy;
 
     @LastModifiedDate
-    @Column(name = "updated_date")
+    @Column(name = "updated_on")
     @JsonIgnore
-    private Date updatedDate = new Date();
+    private Date updatedOn = new Date();
 }
 

@@ -5,6 +5,7 @@ import com.bgddt.qlvb.services.BaseService;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -28,8 +29,7 @@ public class BaseServiceImpl<O, T> implements BaseService<O, T> {
         this.classOfEntity = classOfT;
     }
 
-    protected final Gson GSON = new Gson();
-    protected final ObjectMapper MAPPER = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    protected final Gson GSON = new GsonBuilder().setDateFormat("dd/MM/yyyy HH:mm:ss").create();
     protected final ModelMapper modelMapper = new ModelMapper();
 
     @Override
@@ -54,16 +54,12 @@ public class BaseServiceImpl<O, T> implements BaseService<O, T> {
     @Override
     @Transactional
     public O create(@Valid O dto) throws BusinessException {
-        dto = objectToDto(dto); // Chuyển kiểu dữ liệu của dto về class của DTO
-
         dto = validateCreate(dto);
         T entity = dtoToEntity(dto);
         return entityToDto(repository.save(entity));
     }
 
     protected O validateCreate(O dto) {
-        // Sử dụng thì chuyển Object sang classOfDto
-        // VD: AccountDTO accountDto = (AccountDTO) dto;
         return dto;
     }
 
@@ -76,8 +72,6 @@ public class BaseServiceImpl<O, T> implements BaseService<O, T> {
     @Override
     @Transactional
     public O update(Long id, @Valid O dto) throws BusinessException {
-        dto = objectToDto(dto); // Chuyển kiểu dữ liệu của dto về class của DTO
-
         dto = validateUpdate(id, dto);
         setId(dto, id);
         T entity = dtoToEntity(dto);
@@ -85,8 +79,6 @@ public class BaseServiceImpl<O, T> implements BaseService<O, T> {
     }
 
     protected <O> O validateUpdate(Long id, @Valid O dto) throws BusinessException {
-        // Sử dụng thì chuyển Object sang classOfDto
-        // VD: AccountDTO accountDto = (AccountDTO) dto;
         return dto;
     }
 
@@ -100,9 +92,6 @@ public class BaseServiceImpl<O, T> implements BaseService<O, T> {
         }
     }
 
-    protected O objectToDto(O dto) {
-        return MAPPER.convertValue(dto, classOfDTO);
-    }
     protected T dtoToEntity(O dto) {
         return modelMapper.map(dto, classOfEntity);
     }

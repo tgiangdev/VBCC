@@ -34,7 +34,7 @@
         path: '/quan-ly-van-bang/danh-sach-tot-nghiep',
         name: 'danh-sach-tot-nghiep',
         icon: 'smile',
-        component: './Welcome',
+        component: './quan-ly-van-bang/danh-sach-tot-nghiep',
       },
       {
         path: '/quan-ly-van-bang/phoi-van-bang',

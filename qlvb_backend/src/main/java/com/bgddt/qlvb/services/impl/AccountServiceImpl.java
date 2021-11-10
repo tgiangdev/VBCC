@@ -9,10 +9,7 @@ import com.bgddt.qlvb.common.exceptions.BusinessException;
 import com.bgddt.qlvb.entities.Account;
 import com.bgddt.qlvb.repositories.AccountRepository;
 import com.bgddt.qlvb.models.LoginPayload;
-import com.bgddt.qlvb.services.BaseService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,7 +23,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class AccountServiceImpl extends BaseServiceImpl implements UserDetailsService, AccountService {
+public class AccountServiceImpl extends BaseServiceImpl<AccountDTO, Account> implements UserDetailsService, AccountService<AccountDTO, Account> {
     private AccountRepository accountRepository;
     private AuthenticationManager authenticationManager;
     private JwtTokenProvider tokenProvider;
@@ -57,7 +54,7 @@ public class AccountServiceImpl extends BaseServiceImpl implements UserDetailsSe
     }
 
     public UserDetails loadUserById(Long userId) throws BusinessException {
-        return new AccountDetail((Account) findById(userId));
+        return new AccountDetail(accountRepository.findById(userId).orElseThrow(() -> new BusinessException("User không tồn tại")));
     }
 
     @Override
@@ -91,11 +88,10 @@ public class AccountServiceImpl extends BaseServiceImpl implements UserDetailsSe
 
 
     @Override
-    protected Object validateCreate(Object entity) {
-        AccountDTO account = (AccountDTO) entity;
+    protected AccountDTO validateCreate(AccountDTO dto) {
         String defaultPassword = passwordEncoder.encode("123456");
-        account.setPassword(defaultPassword);
-        return entity;
+        dto.setPassword(defaultPassword);
+        return dto;
     }
 
     // validate update
